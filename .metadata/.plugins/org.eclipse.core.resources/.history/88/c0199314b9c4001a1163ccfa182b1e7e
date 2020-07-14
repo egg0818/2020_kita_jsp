@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import = "com.korea.first.*" %>
+<%@ page import = "java.sql" %>
+
+<%
+Class.forName("oracle.jdbc.driver.OracleDriver");
+
+String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+String userName = "hr";
+String password = "koreait2020";
+Connection con = null;
+
+con = DriverManager.getConnection(url, userName, password); // 이거 외워야함 DrvierManger 외우셈!!!
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Info</title>
+</head>
+<body>
+<div>인포메이션</div>
+
+</body>
+</html>
