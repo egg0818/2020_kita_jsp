@@ -21,11 +21,12 @@ public Connection getCon() throws Exception {
 
 <%
 List<BoardVO> boardlist = new ArrayList();
+//BoardVO 객체 주솟값을 저장 할 수 있는 큰 서랍.
 
 Connection con = null; // Connection 객체 : 자바랑 DB 연결담당!
-PreparedStatement ps = null; // 커리문 실행 (+커리문 완성)
-ResultSet rs = null; // SELECT 때 결과를 담는다!!
-//try 와 finally 에서 사용하기위에서 바깥에서 사용한다!!! (스코프 범위 생각)
+PreparedStatement ps = null; // 커리문 실행 담당 (+문장완성기능)
+ResultSet rs = null; // SELECT 일때 결과를 담는다!! 
+//try 와 finally 에서 사용하기위에서 바깥에서 사용한다!!! (스코프 생각)
 // scope(스코프): 사용 범위
 
 
@@ -34,18 +35,26 @@ String sql = " SELECT i_board, title " +
 							// 붙이면 인덱스 해킹가능해서 애초에 방지!!
 
 try {
-	con = getCon();
-	ps = con.prepareStatement(sql); // 나머지는 이거씀
+	con = getCon(); //연결
+	ps = con.prepareStatement(sql); // 나머지는 이거씀 // sql 쿼리문을 받음
+	// 위에건 스태틱 메소드가 아니다 클래스명.메소드가 아니니까~
+	// 파라미터 타입은 String. sql이 String이기 때문에 
+	// 받는 입장 : 인자 argument
+	// 리턴타입 : PreparedStatement
 	rs = ps.executeQuery(); //★실수주의!! SELECT 때만 씀 -> 리턴타입이 rs 이기 때문에 무조건!!!!
-	
+	// 리턴타입 : ResultSet
+	// 앞에 '=' 붙었으니 줄게있다! 비void형!
 	while(rs.next()) {
 	// 첫줄을 가르키고, 레코드가 있다면 true를 리턴!
-	// 줄이없다 ? false 리턴하고 while문 끝남
+	// 값이없으면 ? false 리턴하고 while문 끝남
 	// 한줄만 가져올 땐 if문 쓰기도 함
+	// while if 둘다 조건에는 boolean 타입
 		int i_board = rs.getInt("i_board");
 		String title = rs.getNString("title");
 		
 		BoardVO vo = new BoardVO();
+		//★★★ 중요함!! 이걸 while문 안에서 만들어여함!
+		// while문 밖에서 만들면 마지막 주솟값이 나온다
 		vo.setI_board(i_board);
 		vo.setTitle(title);
 		
