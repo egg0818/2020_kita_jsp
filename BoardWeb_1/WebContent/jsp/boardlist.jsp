@@ -39,7 +39,6 @@ try {
 	ps = con.prepareStatement(sql); // 나머지는 이거씀 // sql 쿼리문을 받음
 	// 위에건 스태틱 메소드가 아니다 클래스명.메소드가 아니니까~
 	// 파라미터 타입은 String. sql이 String이기 때문에 
-	// 받는 입장 : 인자 argument
 	// 리턴타입 : PreparedStatement
 	rs = ps.executeQuery(); //★실수주의!! SELECT 때만 씀 -> 리턴타입이 rs 이기 때문에 무조건!!!!
 	// 리턴타입 : ResultSet
@@ -54,7 +53,7 @@ try {
 		
 		BoardVO vo = new BoardVO();
 		//★★★ 중요함!! 이걸 while문 안에서 만들어여함!
-		// while문 밖에서 만들면 마지막 주솟값이 나온다
+		// while문 밖에서 만들면 마지막 주솟값(같은값) 만나온다
 		vo.setI_board(i_board);
 		vo.setTitle(title);
 		
@@ -64,11 +63,15 @@ try {
 	// 서랍에 넣는거다!
 } catch(Exception e) {
 	e.printStackTrace(); // 에러 알려줌! (보통 db관련)
+	// try catch 에러 잡는거 중요함. 쌤은 못하지만 니들은 잘해라
 } finally {
 	if(rs != null) { try{ rs.close(); } catch(Exception e) {} }
 	if(ps != null) { try{ ps.close(); } catch(Exception e) {} }
 	if(con != null) { try{ con.close(); } catch(Exception e) {} }
-}
+}	// 열으면 닫아줘야함. 마지막에 오픈한거부터 닫아줌.
+	// 각각 try catch 감싸준 이유 ? 같이 감싸주면 rs가 먼저 닫히면  catch로 바로 가버리기때문에
+	// ps랑 con은 close가 안된다
+	// 안닫아주면 : 메모리 리소스 때문에 멈춰버림
 %>
 
 <!DOCTYPE html>
@@ -87,11 +90,16 @@ try {
 	<% for(BoardVO vo : boardlist) { %>
 	<tr>
 		<td><%=vo.getI_board() %></td>
-		<td><%=vo.getTitle() %></td>
+		<td>
+			<a href="/jsp/boardDetail.jsp?i_board=<%=vo.getI_board() %>">
+			<%=vo.getTitle() %>
+			<!--  // ? : 쿼리스트링
+			// 통신할때씀 key(i_board), value값(vo.getI_board())
+			// &은 연걸자    // get방식 : 속도 , post방식 : 보안 -->
+			</a>
+		</td>
 	</tr>
 		<% } // %= : 출력표현식(out.print~~) // 나중에 자바소스랑 뷰단이랑 다르게 함 %>
-		
-
 	</table>
 </body>
 </html>
