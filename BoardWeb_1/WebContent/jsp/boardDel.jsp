@@ -49,10 +49,10 @@
 	
 	switch(result) {
 	case -1:
-		response.sendRedirect("/jsp/boardlist.jsp?err-1&i_board=" + i_board);
+		response.sendRedirect("/jsp/boardlist.jsp?err=-1&i_board=" + i_board);
 		break;
 	case 0:
-		response.sendRedirect("/jsp/boardlist.jsp?err0&i_board=" + i_board);
+		response.sendRedirect("/jsp/boardlist.jsp?err=0&i_board=" + i_board);
 		break;
 	case 1:
 		response.sendRedirect("/jsp/boardlist.jsp");
