@@ -41,6 +41,7 @@ try {
 	// 파라미터 타입은 String. sql이 String이기 때문에 
 	// 리턴타입 : PreparedStatement
 	rs = ps.executeQuery(); //★실수주의!! SELECT 때만 씀 -> 리턴타입이 rs 이기 때문에 무조건!!!!
+	// 쿼리문을 실행!
 	// 리턴타입 : ResultSet
 	// 앞에 '=' 붙었으니 줄게있다! 비void형!
 	while(rs.next()) {
