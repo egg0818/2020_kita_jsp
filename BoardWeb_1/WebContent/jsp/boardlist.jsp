@@ -31,7 +31,7 @@ ResultSet rs = null; // SELECT 일때 결과를 담는다!!
 
 
 String sql = " SELECT i_board, title " +
-			" FROM t_board "; // board 마지막에 ; 왜안붙임?
+			" FROM t_board ORDER BY i_board ASC"; // board 마지막에 ; 왜안붙임?
 							// 붙이면 인덱스 해킹가능해서 애초에 방지!!
 
 try {
@@ -82,7 +82,10 @@ try {
 <title>게시판</title>
 </head>
 <body>
-	<div>게시판 리스트</div>
+	<div>
+		게시판 리스트
+		<a href="/jsp/boardWrite.jsp"><button>글쓰기</button></a>
+	</div>
 	<table>
 	<tr>
 		<th>No</th>

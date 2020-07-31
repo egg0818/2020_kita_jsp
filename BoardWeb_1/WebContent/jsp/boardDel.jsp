@@ -36,10 +36,9 @@
 		ps = con.prepareStatement(sql);
 		ps.setInt(1, i_board); 
 		result = ps.executeUpdate();
-		// 데이터를 지우고 나서 삭제한 갯수를 dn에 저장
+		// 데이터를 지우고 나서 삭제한 갯수를 result에 저장
 	} catch(Exception e) {
 		e.printStackTrace();
-		
 	} finally { 
 		if(ps != null) { try{ ps.close(); } catch(Exception e) {} }
 		if(con != null) { try{ con.close(); } catch(Exception e) {} }
