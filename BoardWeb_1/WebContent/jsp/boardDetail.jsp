@@ -119,6 +119,7 @@
 	 	<div>
 	 	<a href="/jsp/boardlist.jsp">리스트로 가기</a>
 	 	<a href="#" onclick = "procDel(<%= i_board %>)">삭제</a>
+	 	<a href="/jsp/boardMod.jsp?i_board=<%= i_board %>">수정</a>
 	 	</div>
         <div class="subject"><%= vo.getTitle() %></div>
         <div class="writer"><%=  vo.getI_student() %> </div>
