@@ -78,11 +78,12 @@
 	<div>
 		<form id="frm" action="/jsp/boardModProc.jsp?i_board=<%=i_board%>"method="post" onsubmit="return chk()">
 		<!-- return false만 유일하게 안날라가게 할수있음 -->
-			<div><label>제목: <input type="text" name="title" value="<%= vo.getTitle() %>"></label></div>
-			<div><label>내용: <textarea name="ctnt"> <%= vo.getCtnt() %> </textarea></label></div>
-			<div><label>작성자: <input type="text" name="i_student" value="<%=  vo.getI_student() %>"></label></div>
+			<div><label>제목: <input type="text" name="title" value="<%=vo.getTitle() %>"></label></div>
+			<div><label>내용: <textarea name="ctnt"><%=vo.getCtnt() %> </textarea></label></div>
+			<div><label>작성자: <input type="text" name="i_student" value="<%=vo.getI_student() %>"></label></div>
 			<div><input type="submit" value="글수정"></div>
 			<div><input type="reset" value="리셋"></div>
+			<!--   <input type="hidden" name="i_board" value="<%/*i_board*/%>"> -->
 		</form>
 		<div><a href="/jsp/boardlist.jsp">글목록</a></div>
 	</div>

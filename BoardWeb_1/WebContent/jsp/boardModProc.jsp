@@ -24,7 +24,11 @@ int i_board = Integer.parseInt(strI_board);
 Connection con = null; 
 PreparedStatement ps = null; 
 
-String sql = "UPDATE t_board SET title = ?, ctnt = ?, i_student = ? WHERE i_board = ?";
+String sql = " UPDATE t_board " +
+			 " SET title = ? " +
+			 " , ctnt = ? " +
+			 " , i_student = ? " +
+			 " WHERE i_board = ? ";
 
 int result = -1;
 
@@ -46,6 +50,7 @@ try {
 System.out.println("result : " + result);
 
 int err = 0;
+
 switch(result) {
 case 1:
 	response.sendRedirect("/jsp/boardDetail.jsp?i_board=" + i_board);
@@ -57,14 +62,15 @@ case -1:
 	err = 20;
 	break;
 }
-response.sendRedirect("/jsp/boardWrite.jsp?err=" + err);
-
+response.sendRedirect("/jsp/boardMod.jsp?err=" + err + "&i_board="+ i_board);
+//response.sendRedirect("/jsp/boardWrite.jsp?err=" + err);
+// i_board가 있어야함!
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>글수정 Proc</title>
 </head>
 <body>
 </body>
