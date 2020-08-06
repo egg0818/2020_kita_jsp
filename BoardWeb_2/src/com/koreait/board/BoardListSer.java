@@ -38,13 +38,14 @@ public class BoardListSer extends HttpServlet {
     //super() : 직속 부모에 있는 생성자 호출
     // 자바 최상의 부모 : object <- HttpServlet <- BoardListSer
     // 생성자 호출은 반대
-    // 없에도 됨
+    // 기본 생성자는 클래스를 만들면 자동으로 실행 되는거기 때문에 생략해도 됨!
     
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String strI_board = request.getParameter("i_board");
-		System.out.println("Servlet i_board : " + strI_board);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+//		String strI_board = request.getParameter("i_board");
+//		System.out.println("Servlet i_board : " + strI_board);
 		
 //		try {
 //			Connection con = Dbcon.getCon();
