@@ -7,8 +7,7 @@
 <%
 // 테스트용 String strI_board = request.getParameter("i_board");
 	@SuppressWarnings("unchecked")
-	
-		List<BoardVO> list = (List<BoardVO>)request.getAttribute("data");
+	List<BoardVO> list = (List<BoardVO>)request.getAttribute("data");
 %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +24,7 @@
 <body>
 	<div>게시판 리스트</div>
 	<div>
-		<a href="/boardWrite.jsp"><button>글쓰기</button></a>
+		<a href="/boardWrite"><button>글쓰기</button></a>
 	</div>
 	<table>
 	<tr>

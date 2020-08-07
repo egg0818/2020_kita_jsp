@@ -9,5 +9,6 @@
 <fullyQualifiedTypeName name="java.sql.Connection"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.koreait.board.vo.BoardVO"/>
+<fullyQualifiedTypeName name="com.koreait.board.common.Utils"/>
 <fullyQualifiedTypeName name="com.koreait.board.db.BoardDAO"/>
 </qualifiedTypeNameHistroy>

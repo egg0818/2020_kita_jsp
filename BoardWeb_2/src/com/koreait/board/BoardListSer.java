@@ -42,7 +42,7 @@ public class BoardListSer extends HttpServlet {
     
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		
 //		String strI_board = request.getParameter("i_board");
 //		System.out.println("Servlet i_board : " + strI_board);
