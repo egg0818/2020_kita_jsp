@@ -27,13 +27,14 @@ public class BoardRegmodSer extends HttpServlet {
 		String title = request.getParameter("title");
 		String ctnt = request.getParameter("ctnt");
 		String strI_student = request.getParameter("i_student");
+		int i_student = Utils.parseStrToInt(strI_student, 0);
 		
-		BoardVO vo = new BoardVO();
-		vo.setTitle(title);
-		vo.setCtnt(ctnt);
-		vo.setI_student(Utils.parseStrToInt(strI_student, 0));
+		BoardVO param = new BoardVO();
+		param.setTitle(title);
+		param.setCtnt(ctnt);
+		param.setI_student(i_student);
 		
-		BoardDAO.wriBoard(vo);
+		BoardDAO.insBoard(param);
 		
 		response.sendRedirect("/boardList");
 	
