@@ -5,9 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.err {
+	color : red
+	}
+</style>
 </head>
 <body>
 <div>글쓰기</div>
+<div class="err">${msg} </div>
 <div>
 		<form id="frm" action="/boardWrite" method="post" onsubmit="return chk()">
 			<div><label>제목: <input type="text" name="title"></label></div>

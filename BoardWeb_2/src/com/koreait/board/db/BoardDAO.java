@@ -9,7 +9,7 @@ import java.util.List;
 import com.koreait.board.vo.BoardVO;
 
 public class BoardDAO {
-	public static void insBoard(BoardVO param) {
+	public static int insBoard(BoardVO param) {
 		
 		int result = 0;
 		
@@ -17,9 +17,15 @@ public class BoardDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
+//		String sql = " insert into t_board (i_board, title, ctnt, i_student) "
+//				+ " VALUES "
+//				+ " (seq_board.nextval, ?, ?, ?) ";
+		
 		String sql = " insert into t_board (i_board, title, ctnt, i_student) "
-				+ " VALUES "
-				+ " (seq_board.nextval, ?, ?, ?) ";
+				+ " SELECT nvl(max(i_board), 0) + 1, ?, ?, ? "
+				+ " FROM t_board ";
+		
+
 		
 		try {
 			con = Dbcon.getCon();
@@ -33,6 +39,8 @@ public class BoardDAO {
 		} finally {
 			Dbcon.close(con, ps);
 		}
+		
+		return result;
 		
 	}
 	
@@ -107,10 +115,59 @@ public class BoardDAO {
 			Dbcon.close(con, ps, rs);
 		}
 	
-		
 		return vo;
 		
 	}
+	
+	
+	public static int delBoard(BoardVO param) {
+		
+		int result = 0;
+		
+		BoardVO vo = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " DELETE FROM t_board WHERE i_board=? ";
+		
+		try {
+			con = Dbcon.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getI_board());
+			result = ps.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			Dbcon.close(con, ps);
+		}
+		
+		return result;
+		
+	}
+	
+//	public static int delBoard(int param) {
+//	
+//	int result = 0;
+//	
+//	Connection con = null;
+//	PreparedStatement ps = null;
+//	
+//	String sql = " DELETE FROM t_board WHERE i_board=? ";
+//	
+//	try {
+//		con = Dbcon.getCon();
+//		ps = con.prepareStatement(sql);
+//		ps.setInt(1, param);
+//		result = ps.executeUpdate();
+//	} catch(Exception e) {
+//		e.printStackTrace();
+//	} finally {
+//		Dbcon.close(con, ps);
+//	}
+//	
+//	return result;
+//	
+//}
 
 }
 
