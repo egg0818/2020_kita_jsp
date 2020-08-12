@@ -9,6 +9,7 @@
 </head>
 <body>
 	<div><button onclick="doDel(${data.i_board})">삭제</button></div>
+	<a href="/boardMod?i_board=${data.i_board}"><button>수정</button></a>
 	<div>상세 페이지</div>
 	<div>글번호 : ${data.i_board}</div>
 	<!--  setattribute 있을때만 쓸수 있음. (내장객체 담긴것만 사용가능)
@@ -19,9 +20,10 @@
 	<script>	
 		function doDel(i_board) {
 			if(confirm('삭제 하시겠습니까?')) {
-				location.href='/boardDel?i_board=' + i_board 	
+				location.href='/boardDel?i_board=' + i_board
 			}
 		}
+	
 	</script>
 </body>
 </html>
