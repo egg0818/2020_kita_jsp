@@ -2,13 +2,16 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
 <fullyQualifiedTypeName name="java.sql.DriverManager"/>
-<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
 <fullyQualifiedTypeName name="com.koreait.board.db.Dbcon"/>
 <fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="java.sql.Connection"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.koreait.board.vo.BoardVO"/>
 <fullyQualifiedTypeName name="com.koreait.board.common.Utils"/>
 <fullyQualifiedTypeName name="com.koreait.board.db.BoardDAO"/>
+<fullyQualifiedTypeName name="com.koreait.pjt.ViewResolver"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+<fullyQualifiedTypeName name="com.koreait.pjt.vo.UserVO"/>
+<fullyQualifiedTypeName name="com.koreait.pjt.db.UserDAO"/>
 </qualifiedTypeNameHistroy>
