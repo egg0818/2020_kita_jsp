@@ -15,49 +15,52 @@ import com.koreait.pjt.db.UserDAO;
 import com.koreait.pjt.vo.UserVO;
 
 
-@WebServlet("/join")
-public class JoinSer extends HttpServlet {
+@WebServlet("/login")
+public class LoginSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	//get 방식은 화면 띄울 때
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ViewResolver.foward("user/join", request, response);
-		
-//		세션테스트
-//		HttpSession gg = request.getSession();
-//		gg.setAttribute("abc", gg.getAttribute(Const.LOGIN_USER));
-		
-		
-		
+		ViewResolver.foward("user/login", request, response);
 	}
-	
-	//post 방식은 주로 업무처리(upadate, insert 등등)
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
 		String encrypt_pw = MyUtils.encrypetString(user_pw);
-		String nm = request.getParameter("nm");
-		String email = request.getParameter("email");
 		
 		UserVO param = new UserVO();
 		param.setUser_id(user_id);
 		param.setUser_pw(encrypt_pw);
-		param.setNm(nm);
-		param.setEmail(email);
 		
-		int result = UserDAO.insUser(param);
-//		System.out.println("result : " + result);
+
+		// param에 id, nm, i_user 값 들어감
+		int result = UserDAO.selUser(param);
 		
+		// 에러처리
 		if(result != 1) {
-//			System.out.println("에러 발생");
 			
-			request.setAttribute("msg", "에러가 발생");
-			request.setAttribute("data", param);
+			String msg = null;
+		
+			if(result == 2) {
+				msg = "비밀번호가 틀렸습니다";
+			} else if(result == 3) {
+				msg = "해당되는 아이디가 없습니다";
+			} else {
+				msg = "에러가 발생하였습니다";
+			}
+			request.setAttribute("user_id", user_id);
+			request.setAttribute("msg", msg);
 			doGet(request, response);
 			return;
 		}
-		
-		response.sendRedirect("/login");
+				
+			HttpSession hs = request.getSession();
+			hs.setAttribute(Const.LOGIN_USER, param);
+			
+			//테스트
+			System.out.println("로그인 성공");
+			
+			response.sendRedirect("/board/list");
 		
 	}
 
