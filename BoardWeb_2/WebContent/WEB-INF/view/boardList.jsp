@@ -3,7 +3,6 @@
 <%@ page import="com.koreait.board.vo.BoardVO" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
-
 <%
 // 테스트용 String strI_board = request.getParameter("i_board");
 	@SuppressWarnings("unchecked")
@@ -38,7 +37,7 @@
 		<td><%=vo.getTitle() %></td>
 		<td><%=vo.getI_student() %></td>
 	</tr>
-		<% } %>
+	<% } %>
 	</table>
 	<script>
 		function moveToDetail(i_board) {

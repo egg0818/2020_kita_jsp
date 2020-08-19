@@ -16,8 +16,9 @@ public class JdbcTemplate {
 		try {
 			con = Dbcon.getCon();
 			ps = con.prepareStatement(sql);	
-			// RS에 SELECT문 결과값이 담긴다
-			rs = jdbc.prepared(ps);
+			jdbc.prepared(ps);
+			
+			rs = ps.executeQuery();
 			result = jdbc.excuteQuery(rs);
 		} catch (Exception e) {		
 			e.printStackTrace();
@@ -35,8 +36,11 @@ public class JdbcTemplate {
 		
 		try {
 			con = Dbcon.getCon();
-			ps = con.prepareStatement(sql);			
-			result = jdbc.update(ps);
+			ps = con.prepareStatement(sql);	
+			
+			jdbc.update(ps);
+			
+			result = ps.executeUpdate();
 		} catch (Exception e) {		
 			e.printStackTrace();
 		} finally {

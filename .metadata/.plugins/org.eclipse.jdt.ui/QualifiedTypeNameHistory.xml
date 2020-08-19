@@ -3,8 +3,6 @@
 <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
 <fullyQualifiedTypeName name="java.sql.DriverManager"/>
 <fullyQualifiedTypeName name="com.koreait.board.db.Dbcon"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.koreait.board.vo.BoardVO"/>
 <fullyQualifiedTypeName name="com.koreait.board.common.Utils"/>
 <fullyQualifiedTypeName name="com.koreait.board.db.BoardDAO"/>
@@ -19,4 +17,8 @@
 <fullyQualifiedTypeName name="java.sql.Connection"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.db.Const"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.koreait.pjt.vo.BoardVO"/>
+<fullyQualifiedTypeName name="com.koreait.pjt.db.BoardDAO"/>
 </qualifiedTypeNameHistroy>

@@ -9,5 +9,5 @@ import java.sql.SQLException;
 // 추상클래스 : 추상메소드를 가지고 있고 객체생성 x // 클래스앞에 abstract 붙임
 
 public interface JdbcUpdateInterface {
-	int update(PreparedStatement ps) throws SQLException;
+	void update(PreparedStatement ps) throws SQLException;
 }

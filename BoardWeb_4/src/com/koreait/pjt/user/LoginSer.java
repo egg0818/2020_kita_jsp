@@ -34,7 +34,7 @@ public class LoginSer extends HttpServlet {
 		
 
 		// param에 id, nm, i_user 값 들어감
-		int result = UserDAO.selUser(param);
+		int result = UserDAO.login(param);
 		
 		// 에러처리
 		if(result != 1) {

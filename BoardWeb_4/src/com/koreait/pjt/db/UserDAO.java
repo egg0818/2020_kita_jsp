@@ -16,21 +16,21 @@ public class UserDAO {
 				+ " VALUES "
 				+ " (seq_user.nextval, ?, ?, ?, ?) ";
 		
-		// 인터페이스 : 객체생성 x
+		// 인터페이스를 객체화 한게 아니고 implements 한거다
+		// 익명클래스 활용 - 따로 클래스를 만들지 않아도 된다
 		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
 			@Override
-			public int update(PreparedStatement ps) throws SQLException {				
+			public void update(PreparedStatement ps) throws SQLException {				
 				ps.setNString(1, param.getUser_id());
 				ps.setNString(2, param.getUser_pw());
 				ps.setNString(3, param.getNm());
 				ps.setNString(4, param.getEmail());
-				return ps.executeUpdate();
 			}
 		});
 	}
 	
 	//0:에러 발생, 1:로그인 성공, 2:비밀번호 틀림, 3:아이디 없음
-	public static int selUser(UserVO param) {
+	public static int login(UserVO param) {
 		
 		String sql = " SELECT i_user, user_pw, nm "
 				+ " FROM t_user "
@@ -39,10 +39,9 @@ public class UserDAO {
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 
 			@Override
-			public ResultSet prepared(PreparedStatement ps) throws SQLException {
+			public void prepared(PreparedStatement ps) throws SQLException {
 				ps.setNString(1, param.getUser_id());	
 				//select문 실행. User.DAO의 executeQuery 메소드가 아니다.
-				return ps.executeQuery();
 			}
 
 			@Override
