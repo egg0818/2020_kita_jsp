@@ -44,6 +44,7 @@ public class BoardDetailSer extends HttpServlet {
 		ViewResolver.foward("board/detail", request, response);
 		
 	}
+	
 }
 
 	

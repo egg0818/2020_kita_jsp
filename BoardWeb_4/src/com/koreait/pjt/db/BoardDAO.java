@@ -1,5 +1,6 @@
 package com.koreait.pjt.db;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.koreait.pjt.db.Dbcon;
 import com.koreait.pjt.vo.BoardVO;
 
 public class BoardDAO {
@@ -69,13 +71,13 @@ public class BoardDAO {
 	}
 	
 	public static BoardVO selBoard(BoardVO param) {
-		String sql = " SELECT A.i_board, A.title, A.ctnt, B.nm, A.r_dt, A.hits "
+		String sql = " SELECT A.i_board, A.title, A.ctnt, B.nm, A.i_user, A.r_dt, A.hits "
 				+ " FROM t_board4 A "
 				+ " inner join t_user B "
 				+ " on A.i_user = B.i_user "
 				+ " WHERE A.i_board = ? ";
 		
-		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+		int resultInt = JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
@@ -91,6 +93,7 @@ public class BoardDAO {
 					String nm = rs.getNString("nm");
 					String r_dt = rs.getNString("r_dt");
 					int hits = rs.getInt("hits");
+					int i_user = rs.getInt("i_user");
 					
 					param.setI_user(i_board);
 					param.setTitle(title);
@@ -98,6 +101,7 @@ public class BoardDAO {
 					param.setNm(nm);
 					param.setHits(hits);
 					param.setR_dt(r_dt);
+					param.setI_user(i_user);
 					
 					} 
 				return 1;
@@ -108,5 +112,19 @@ public class BoardDAO {
 		return param;
 	}
 	
-
+	public static int delBoard(BoardVO param) {
+		
+		
+		String sql = " delete from t_board4 where i_board = ? ";
+		
+		
+		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {				
+				ps.setInt(1, param.getI_board());
+			}
+		});
+		
+	}
+		
 }
