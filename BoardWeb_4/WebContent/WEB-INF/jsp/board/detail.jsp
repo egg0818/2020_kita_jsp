@@ -32,7 +32,10 @@
 	<div>조회수 : ${data.hits}</div>
 	<script>	
 		function submitDel() {
-			delFrm.submit()
+			let cf = confirm('삭제하시겠습니까?');
+			if(cf) {
+				delFrm.submit();
+			}
 		}
 	</script>
 </body>

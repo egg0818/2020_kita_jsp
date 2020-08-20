@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.koreait.pjt.MyUtils;
 import com.koreait.pjt.db.BoardDAO;
 import com.koreait.pjt.vo.BoardVO;
+import com.koreait.pjt.vo.UserVO;
 
 
 @WebServlet("/board/del")
@@ -18,24 +20,22 @@ public class BoardDelSer extends HttpServlet {
  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String stri_board = request.getParameter("i_board");
-		int i_board = Integer.parseInt(stri_board);
-		// System.out.println("i_board : " + i_board);
-		
-//		if(i_board == 0) {
-//			response.sendRedirect("/errPage?err=2&target=boardList");
-//			return;
-//		}
-		
-		BoardVO vo = new BoardVO();
-		vo.setI_board(i_board);
-		
-		int result = BoardDAO.delBoard(vo);
-		
-		if(result==1) {
-			response.sendRedirect("/board/list");
-		} 
-		
+    	String strI_board = request.getParameter("i_board");
+    	int i_board = MyUtils.parseStrToInt(strI_board);
+    	
+    	UserVO loginUser = MyUtils.getLoginUser(request);
+    	
+    	if(loginUser == null) {
+    		response.sendRedirect("/login");
+    		return;
+    	}
+   
+    	BoardVO param = new BoardVO();
+    	param.setI_board(i_board);
+    	param.setI_user(loginUser.getI_user());
+    	
+    	int result = BoardDAO.delBoard(param);
+    	response.sendRedirect("/board/list");
 	}
-
+		
 }

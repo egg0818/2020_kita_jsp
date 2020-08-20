@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import com.koreait.pjt.vo.BoardVO;
 import com.koreait.pjt.vo.UserVO;
+import com.sun.deploy.uitoolkit.impl.fx.Utils;
+import com.koreait.pjt.MyUtils;
 import com.koreait.pjt.ViewResolver;
 import com.koreait.pjt.db.BoardDAO;
 import com.koreait.pjt.db.Const;
@@ -30,6 +32,20 @@ public class BoardRegmod extends HttpServlet {
 			return;
 		}
 		
+		String strI_board = request.getParameter("i_board");
+		
+		if(strI_board != null) {
+			int i_board = MyUtils.parseStrToInt(strI_board);
+			
+			BoardVO param = new BoardVO();
+			param.setI_board(i_board);
+		
+			BoardVO data = BoardDAO.selBoard(param);
+			request.setAttribute("data", data);
+		}
+		
+
+		
 		ViewResolver.foward("board/regmod", request, response);
 		
 		
@@ -40,6 +56,7 @@ public class BoardRegmod extends HttpServlet {
 		
 		String title = request.getParameter("title");
 		String ctnt = request.getParameter("ctnt");
+		String i_board = request.getParameter("i_board");
 		
 		HttpSession hs = request.getSession();
 		UserVO loginUser = (UserVO) hs.getAttribute(Const.LOGIN_USER);
@@ -67,7 +84,11 @@ public class BoardRegmod extends HttpServlet {
 //			return;
 //		}
 		
-		System.out.println("result : " + result);
+//		System.out.println("result : " + result);
+		
+		if(i_board != null) {
+			result = BoardDAO.uptBoard(param);
+		}
 		
 	}
 
