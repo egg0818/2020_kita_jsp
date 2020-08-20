@@ -24,6 +24,7 @@ public class BoardRegmod extends HttpServlet {
 	//화면 띄우는 용도 (등록창/수정창)
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession hs = request.getSession();
+		
 		if(hs.getAttribute(Const.LOGIN_USER) == null) {
 			response.sendRedirect("/login");
 			return;

@@ -32,7 +32,7 @@
 		<th>작성일시</th>
 	</tr>
 		<c:forEach items="${list}" var="item">
-		<tr>
+		<tr class="itemRow" onclick="moveToDetail(${item.i_board})">
 			<td>${item.i_board} </td>
 			<td>${item.title} </td>
 			<td>${item.i_user} </td>
@@ -42,7 +42,10 @@
 		</c:forEach>
 	</table>
 	<script>
-	
+	function moveToDetail(i_board) {
+		//console.log('moveToDetail - i_board : ' + i_board)
+		location.href = 'detail?i_board=' + i_board
+	}
 	</script>
 </body>
 </html>

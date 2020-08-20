@@ -68,5 +68,45 @@ public class BoardDAO {
 		});
 	}
 	
+	public static BoardVO selBoard(BoardVO param) {
+		String sql = " SELECT A.i_board, A.title, A.ctnt, B.nm, A.r_dt, A.hits "
+				+ " FROM t_board4 A "
+				+ " inner join t_user B "
+				+ " on A.i_user = B.i_user "
+				+ " WHERE A.i_board = ? ";
+		
+		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+
+			@Override
+			public void prepared(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, param.getI_board());	
+			}
+
+			@Override
+			public int excuteQuery(ResultSet rs) throws SQLException {
+				if(rs.next()) {
+					int i_board = rs.getInt("i_board");
+					String title = rs.getNString("title");
+					String ctnt = rs.getNString("ctnt");
+					String nm = rs.getNString("nm");
+					String r_dt = rs.getNString("r_dt");
+					int hits = rs.getInt("hits");
+					
+					param.setI_user(i_board);
+					param.setTitle(title);
+					param.setCtnt(ctnt);
+					param.setNm(nm);
+					param.setHits(hits);
+					param.setR_dt(r_dt);
+					
+					} 
+				return 1;
+				
+				} 		
+		});
+		
+		return param;
+	}
 	
+
 }

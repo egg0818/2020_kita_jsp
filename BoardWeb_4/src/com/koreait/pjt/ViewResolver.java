@@ -13,5 +13,14 @@ public class ViewResolver extends HttpServlet {
 		request.getRequestDispatcher(jsp).forward(request, response);
 	}
 	
+	public static void fowardLoginChk(String fileNm, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(MyUtils.isLogout(request, response)) {
+			response.sendRedirect("/login");
+			return;
+		}
+		
+		ViewResolver.foward(fileNm, request, response);
+	}
+	
 }
  

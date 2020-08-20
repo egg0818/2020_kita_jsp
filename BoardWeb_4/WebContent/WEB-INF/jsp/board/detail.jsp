@@ -16,11 +16,13 @@
 	       	주석에는 $ 쓰지말기!! -->
 	<div>제목 : ${data.title}</div>
 	<div>내용: ${data.ctnt}</div>
-	<div>작성자 : ${data.i_user}</div>
+	<div>작성자 : ${data.nm}</div>
+	<div>작성일시 : ${data.r_dt}</div>
+	<div>조회수 : ${data.hits}</div>
 	<script>	
 		function doDel(i_board) {
 			if(confirm('삭제 하시겠습니까?')) {
-				location.href='/boardDel?i_board=' + i_board
+				location.href='/board/del?i_board=' + i_board
 			}
 		}
 	

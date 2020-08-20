@@ -1,9 +1,25 @@
 package com.koreait.pjt;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.koreait.pjt.db.Const;
+
 public class MyUtils {
+	//return true : 로그인 안됨!, false : 로그인 된 상태
+	public static boolean isLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession hs = request.getSession();
+		if(hs.getAttribute(Const.LOGIN_USER) == null) {
+			return true;
+		}
+		return false;
+	}
+	
 	public static String encrypetString(String str) {
 		  String sha = "";
 

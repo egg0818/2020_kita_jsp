@@ -7,7 +7,6 @@
 <fullyQualifiedTypeName name="com.koreait.board.common.Utils"/>
 <fullyQualifiedTypeName name="com.koreait.board.db.BoardDAO"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.ViewResolver"/>
-<fullyQualifiedTypeName name="com.koreait.pjt.vo.UserVO"/>
 <fullyQualifiedTypeName name="java.security.MessageDigest"/>
 <fullyQualifiedTypeName name="java.security.NoSuchAlgorithmException"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.MyUtils"/>
@@ -21,4 +20,5 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.vo.BoardVO"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.db.BoardDAO"/>
+<fullyQualifiedTypeName name="com.koreait.pjt.vo.UserVO"/>
 </qualifiedTypeNameHistroy>

@@ -8,6 +8,9 @@ public class BoardVO {
 	private int i_user;
 	private String r_dt;
 	private String m_dt;
+	private String nm;
+	
+	
 	
 	public int getI_board() {
 		return i_board;
@@ -20,6 +23,12 @@ public class BoardVO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getNm() {
+		return nm;
+	}
+	public void setNm(String nm) {
+		this.nm = nm;
 	}
 	public String getCtnt() {
 		return ctnt;
