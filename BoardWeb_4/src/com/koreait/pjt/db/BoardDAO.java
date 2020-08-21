@@ -134,5 +134,19 @@ public class BoardDAO {
 		});
 	}
 	
+	public static void addHits(final BoardVO param) {
+		String sql = " UPDATE t_board4 "
+				+ "SET hits = hits+1 "
+				+ "WHERE i_board = ? ";
+		
+		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, param.getI_board());
+			}});
+		
+	}
+	
 		
 }
