@@ -18,9 +18,7 @@ public class LogoutSer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession hs = request.getSession();
 		hs.invalidate();
-		ViewResolver.fowardLoginChk("user/login", request, response);
+		response.sendRedirect("/login");;
 	}
-
-	
 
 }

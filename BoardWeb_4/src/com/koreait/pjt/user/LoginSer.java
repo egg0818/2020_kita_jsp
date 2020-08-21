@@ -20,7 +20,15 @@ public class LoginSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ViewResolver.foward("user/login", request, response);
+		HttpSession hs = request.getSession();
+		
+		if (MyUtils.getLoginUser(request) != null) {
+			response.sendRedirect("/board/list");
+		} else {
+			ViewResolver.foward("user/login", request, response);
+		}
+		
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
