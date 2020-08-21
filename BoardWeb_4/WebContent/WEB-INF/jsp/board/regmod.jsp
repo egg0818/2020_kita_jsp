@@ -7,7 +7,7 @@
 <title>등록/수정</title>
 </head>
 <body>
-<div>${data == null ? '글등록' : '글수정'}</div>
+<div>${data == null ? '등록' : '수정'}</div>
 	<div>
 		<form id="frm" action="regmod" method="post">
 			<input type="hidden" name="i_board" value="${data.i_board}">

@@ -44,11 +44,8 @@ public class BoardRegmod extends HttpServlet {
 			request.setAttribute("data", data);
 		}
 		
-
-		
-		ViewResolver.foward("board/regmod", request, response);
-		
-		
+		ViewResolver.fowardLoginChk("board/regmod", request, response);
+	
 	}
 
 	//처리 용도(db에등록/수정) 실시
@@ -72,23 +69,28 @@ public class BoardRegmod extends HttpServlet {
 //		System.out.println(param.getI_user());
 //		System.out.println("title : " + param.getTitle() + "\n" + "ctnt : " + param.getCtnt());
 		
-
+		int result = 0;
 		
-		int result = BoardDAO.insBoard(param);
-		
-		response.sendRedirect("/board/list");
+		// 빈칸이면 null이 아니고 빈칸값을 가져온다. null값이 오려면 아예 value가 없어야함
+		if(i_board != "") {
+			param.setI_board(MyUtils.parseStrToInt(i_board));
+			result = BoardDAO.uptBoard(param);
+			response.sendRedirect("/board/detail?i_board=" + i_board);
+			
+		} else {
+			result = BoardDAO.insBoard(param);
+			response.sendRedirect("/board/list");
+		}
 		
 //		if(result != 1) {
-//			System.out.println("에러 발생");
-//			doGet(request, response);
-//			return;
-//		}
-		
+//		System.out.println("에러 발생");
+//		doGet(request, response);
+//		return;
+//	}
+	
 //		System.out.println("result : " + result);
 		
-		if(i_board != null) {
-			result = BoardDAO.uptBoard(param);
-		}
+		
 		
 	}
 

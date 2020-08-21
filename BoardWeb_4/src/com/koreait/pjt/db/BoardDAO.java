@@ -13,6 +13,24 @@ import com.koreait.pjt.db.Dbcon;
 import com.koreait.pjt.vo.BoardVO;
 
 public class BoardDAO {
+	
+	public static int insBoard(BoardVO param) {
+		String sql = " insert into t_board4 (i_board, title, ctnt, i_user) "
+				+ " SELECT nvl(max(i_board), 0) + 1, ?, ?, ? "
+				+ " FROM t_board4 ";
+		
+		// 익명클래스, 인터페이스를 객체화 한 것 
+		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {				
+				ps.setNString(1, param.getTitle());
+				ps.setNString(2, param.getCtnt());
+				//수정해야함
+				ps.setInt(3, param.getI_user());
+			}
+		});
+	}
+	
 	public static List<BoardVO> selBoardlist() {
 		// 레퍼런스 변수에 final 붙이면 주솟값 변경x
 		final List<BoardVO> list = new ArrayList();
@@ -45,29 +63,8 @@ public class BoardDAO {
 				}
 				return 1;
 			}
-			
 		});
-		
-		
 		return list;
-	}
-	
-	public static int insBoard(BoardVO param) {
-		String sql = " insert into t_board4 (i_board, title, ctnt, i_user) "
-				+ " SELECT nvl(max(i_board), 0) + 1, ?, ?, ? "
-				+ " FROM t_board4 ";
-		
-		
-		// 익명클래스, 인터페이스를 객체화 한 것 
-		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
-			@Override
-			public void update(PreparedStatement ps) throws SQLException {				
-				ps.setNString(1, param.getTitle());
-				ps.setNString(2, param.getCtnt());
-				//수정해야함
-				ps.setInt(3, param.getI_user());
-			}
-		});
 	}
 	
 	public static BoardVO selBoard(BoardVO param) {
@@ -78,12 +75,10 @@ public class BoardDAO {
 				+ " WHERE A.i_board = ? ";
 		
 		int resultInt = JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
-
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, param.getI_board());	
 			}
-
 			@Override
 			public int excuteQuery(ResultSet rs) throws SQLException {
 				if(rs.next()) {
@@ -102,14 +97,29 @@ public class BoardDAO {
 					param.setHits(hits);
 					param.setR_dt(r_dt);
 					param.setI_user(i_user);
-					
 					} 
 				return 1;
-				
 				} 		
 		});
-		
 		return param;
+	}
+	
+	public static int uptBoard(BoardVO param) {
+		String sql = " UPDATE t_board4 " +
+				 " SET title = ? " +
+				 " , ctnt = ? " +
+				 " WHERE i_board = ? "
+				 + " AND i_user = ? ";
+		
+		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setNString(1, param.getTitle());
+				ps.setNString(2, param.getCtnt());
+				ps.setInt(3, param.getI_board());
+				ps.setInt(4, param.getI_user());
+			}});
 	}
 	
 	public static int delBoard(final BoardVO param) {
@@ -124,21 +134,5 @@ public class BoardDAO {
 		});
 	}
 	
-	public static int uptBoard(BoardVO param) {
-		String sql = " UPDATE t_board4 " +
-				 " SET title = ? " +
-				 " , ctnt = ? " +
-				 " WHERE i_board = ? ";
-	
-		
-		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
-
-			@Override
-			public void update(PreparedStatement ps) throws SQLException {
-				ps.setNString(1, param.getTitle());
-				ps.setNString(2, param.getCtnt());
-				ps.setInt(3, param.getI_board());
-			}});
-	}
 		
 }
