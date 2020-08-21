@@ -35,7 +35,10 @@ public class BoardDAO {
 		// 레퍼런스 변수에 final 붙이면 주솟값 변경x
 		final List<BoardVO> list = new ArrayList();
 		
-		String sql = " SELECT i_board, title, hits, i_user, r_dt FROM t_board4"
+		String sql = " SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt "
+				+ " FROM t_board4 A "
+				+ " INNER JOIN t_user B "
+				+ " ON A.i_user = B.i_user "
 				+ " ORDER BY i_board DESC ";
 		
 		int result = JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
@@ -50,6 +53,7 @@ public class BoardDAO {
 					String title = rs.getNString("title");
 					int hits = rs.getInt("hits");
 					int i_user = rs.getInt("i_user");
+					String nm = rs.getNString("nm");
 					String r_dt = rs.getNString("r_dt");
 							
 					BoardVO vo = new BoardVO();
@@ -58,6 +62,7 @@ public class BoardDAO {
 					vo.setHits(hits);
 					vo.setI_user(i_user);
 					vo.setR_dt(r_dt);
+					vo.setNm(nm);
 					
 					list.add(vo);
 				}

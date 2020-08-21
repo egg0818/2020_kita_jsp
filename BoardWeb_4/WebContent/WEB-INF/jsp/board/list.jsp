@@ -18,9 +18,11 @@
 </style>
 </head>
 <body>
+	<a href="/logout">로그아웃</a><br><br>
 	<div>${loginUser.nm}님 환영합니다</div>
+	<br>
 	<div>
-		<a href="regmod">글쓰기</a>
+		<a href="/board/regmod">글쓰기</a>
 	</div>
 	<h1>리스트</h1>
 	<table>
@@ -35,7 +37,7 @@
 		<tr class="itemRow" onclick="moveToDetail(${item.i_board})">
 			<td>${item.i_board} </td>
 			<td>${item.title} </td>
-			<td>${item.i_user} </td>
+			<td>${item.nm} </td>
 			<td>${item.hits} </td>
 			<td>${item.r_dt} </td>
 		</tr>
