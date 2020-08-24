@@ -30,6 +30,7 @@
 	<div>작성자 : ${data.nm}</div>
 	<div>작성일시 : ${data.r_dt}</div>
 	<div>조회수 : ${data.hits}</div>
+	<div>좋아요 : ${data.like == 1 ? '❤' : '♡' }</div>
 	<script>	
 		function submitDel() {
 			let cf = confirm('삭제하시겠습니까?');

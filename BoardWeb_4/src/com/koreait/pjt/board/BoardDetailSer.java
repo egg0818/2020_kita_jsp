@@ -48,6 +48,7 @@ public class BoardDetailSer extends HttpServlet {
 		
 		BoardVO param = new BoardVO();
 		param.setI_board(i_board);
+		param.setI_user(loginUser.getI_user());
 		
 		//단독으로 조회수 올리기 방지! -- [start]
 		ServletContext application = getServletContext(); //어플리케이션 내장객체 얻어오기
@@ -61,6 +62,8 @@ public class BoardDetailSer extends HttpServlet {
 		
 		BoardVO data = BoardDAO.selBoard(param);
 		request.setAttribute("data", data);
+		
+		System.out.println(data.getLike());
 
 		ViewResolver.foward("board/detail", request, response);
 	}

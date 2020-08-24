@@ -73,16 +73,20 @@ public class BoardDAO {
 	}
 	
 	public static BoardVO selBoard(BoardVO param) {
-		String sql = " SELECT A.i_board, A.title, A.ctnt, B.nm, A.i_user, A.r_dt, A.hits "
-				+ " FROM t_board4 A "
-				+ " inner join t_user B "
-				+ " on A.i_user = B.i_user "
-				+ " WHERE A.i_board = ? ";
+		String sql = " select A.*, C.nm, DECODE(B.i_user, null, 0, 1) as ynLike"
+				+ " from t_board4 A "
+				+ " LEFT JOIN t_board4_like B "
+				+ " ON A.i_board = B.i_board "
+				+ " AND B.i_user = ? "
+				+ " INNER JOIN t_user C "
+				+ " ON A.i_user = C.i_user "
+				+ " where A.i_board = ? ";
 		
 		int resultInt = JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, param.getI_board());	
+				ps.setInt(1, param.getI_user());
+				ps.setInt(2, param.getI_board());
 			}
 			@Override
 			public int excuteQuery(ResultSet rs) throws SQLException {
@@ -94,14 +98,16 @@ public class BoardDAO {
 					String r_dt = rs.getNString("r_dt");
 					int hits = rs.getInt("hits");
 					int i_user = rs.getInt("i_user");
+					int like = rs.getInt("ynLike");
 					
-					param.setI_user(i_board);
+					param.setI_board(i_board);
 					param.setTitle(title);
 					param.setCtnt(ctnt);
 					param.setNm(nm);
 					param.setHits(hits);
 					param.setR_dt(r_dt);
 					param.setI_user(i_user);
+					param.setLike(like);
 					} 
 				return 1;
 				} 		
