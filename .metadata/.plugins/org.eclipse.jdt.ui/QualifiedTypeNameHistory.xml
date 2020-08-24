@@ -18,9 +18,10 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.vo.BoardVO"/>
-<fullyQualifiedTypeName name="com.koreait.pjt.db.BoardDAO"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
-<fullyQualifiedTypeName name="com.koreait.pjt.vo.UserVO"/>
 <fullyQualifiedTypeName name="com.sun.deploy.uitoolkit.impl.fx.Utils"/>
+<fullyQualifiedTypeName name="com.koreait.pjt.db.BoardDAO"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.MyUtils"/>
+<fullyQualifiedTypeName name="com.koreait.pjt.vo.UserVO"/>
+<fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
 </qualifiedTypeNameHistroy>

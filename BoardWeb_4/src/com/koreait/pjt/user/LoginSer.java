@@ -12,6 +12,7 @@ import com.koreait.pjt.MyUtils;
 import com.koreait.pjt.ViewResolver;
 import com.koreait.pjt.db.Const;
 import com.koreait.pjt.db.UserDAO;
+import com.koreait.pjt.vo.HistoryVO;
 import com.koreait.pjt.vo.UserVO;
 
 
@@ -61,15 +62,59 @@ public class LoginSer extends HttpServlet {
 			doGet(request, response);
 			return;
 		}
-				
+			
+			String agent = request.getHeader("User-Agent");
+			System.out.println("agent: " + agent);
+			String os = getOs(agent);
+			String browser = getBrowser(agent);
+			String ip_addr = request.getRemoteAddr();
+			
+			HistoryVO hVO = new HistoryVO();
+			hVO.setI_user(param.getI_user());
+			hVO.setOs(os);
+			hVO.setIp_addr(ip_addr);
+			hVO.setBrowser(browser);
+			
+		
+			//세션 설정
 			HttpSession hs = request.getSession();
 			hs.setAttribute(Const.LOGIN_USER, param);
 			
 			//테스트
-			System.out.println("로그인 성공");
+			//System.out.println("로그인 성공");
 			
 			response.sendRedirect("/board/list");
 		
 	}
+	
+	private String getOs(String agent) {
+		String result = null;
+		if(agent.contains("mac")) {
+			return "mac";
+		} else if(agent.contains("windows")) {
+			return "win";
+		} else if(agent.contains("x11")) {
+			return "linux";
+		} else if(agent.contains("android")) {
+			return "Android";
+		} else if(agent.contains("iphone")) {
+			return "ios";
+		}
+		return "";
+	}
+	
+	private String getBrowser(String agent) {
+		if(agent.contains("msie")) {
+			return "ie";
+		} else if(agent.contains("safari")) {
+			return "safari";
+		}else if(agent.contains("chrome")) {
+			return "chrome";
+		}
+		
+		return "";
+	}
+	
+	
 
 }

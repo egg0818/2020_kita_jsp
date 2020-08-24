@@ -22,7 +22,6 @@ import com.koreait.pjt.vo.UserVO;
 public class BoardListSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession hs = request.getSession();
 		if(hs.getAttribute(Const.LOGIN_USER) == null) {

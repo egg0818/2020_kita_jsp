@@ -24,7 +24,6 @@ public class MyUtils {
 		}
 	}
 	
-	
 	public static UserVO getLoginUser(HttpServletRequest request) {
 		HttpSession hs = request.getSession();
 		return (UserVO)hs.getAttribute(Const.LOGIN_USER);
