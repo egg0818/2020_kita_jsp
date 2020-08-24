@@ -21,6 +21,12 @@ public class LoginSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//차단
+//		if(request.getRemoteAddr().equals("192.168.2.8")) {
+//			ViewResolver.foward("user/ipban", request, response);
+//			return;
+//		}
+		
 		HttpSession hs = request.getSession();
 		
 		if (MyUtils.getLoginUser(request) != null) {
@@ -28,8 +34,6 @@ public class LoginSer extends HttpServlet {
 		} else {
 			ViewResolver.foward("user/login", request, response);
 		}
-		
-	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -62,12 +66,19 @@ public class LoginSer extends HttpServlet {
 			doGet(request, response);
 			return;
 		}
+		
+		
 			
+			// -------------------- 로긴 히스토리 기록 [start]
 			String agent = request.getHeader("User-Agent");
 			System.out.println("agent: " + agent);
 			String os = getOs(agent);
 			String browser = getBrowser(agent);
 			String ip_addr = request.getRemoteAddr();
+			
+			System.out.println("os: " + os);
+			System.out.println("browser: " + browser);
+			System.out.println("ip_addr: " + ip_addr);
 			
 			HistoryVO hVO = new HistoryVO();
 			hVO.setI_user(param.getI_user());
@@ -75,6 +86,8 @@ public class LoginSer extends HttpServlet {
 			hVO.setIp_addr(ip_addr);
 			hVO.setBrowser(browser);
 			
+			UserDAO.InsHistory(hVO);
+			// -------------------- 로긴 히스토리 기록 [end]
 		
 			//세션 설정
 			HttpSession hs = request.getSession();
@@ -88,28 +101,30 @@ public class LoginSer extends HttpServlet {
 	}
 	
 	private String getOs(String agent) {
-		String result = null;
-		if(agent.contains("mac")) {
+		
+		if(agent.toLowerCase().contains("mac")) {
 			return "mac";
-		} else if(agent.contains("windows")) {
+		} else if(agent.toLowerCase().contains("windows")) {
 			return "win";
-		} else if(agent.contains("x11")) {
+		} else if(agent.toLowerCase().contains("x11")) {
 			return "linux";
-		} else if(agent.contains("android")) {
-			return "Android";
-		} else if(agent.contains("iphone")) {
+		} else if(agent.toLowerCase().contains("android")) {
+			return " Android";
+		} else if(agent.toLowerCase().contains("iphone")) {
 			return "ios";
+		} else if(agent.toLowerCase().contains("linux")) {
+			return "linux";
 		}
 		return "";
 	}
 	
 	private String getBrowser(String agent) {
-		if(agent.contains("msie")) {
+		if(agent.toLowerCase().contains("msie")) {
 			return "ie";
-		} else if(agent.contains("safari")) {
-			return "safari";
-		}else if(agent.contains("chrome")) {
+		} else if(agent.toLowerCase().contains("chrome")) {
 			return "chrome";
+		} else if(agent.toLowerCase().contains("safari")) {
+			return "safari";
 		}
 		
 		return "";

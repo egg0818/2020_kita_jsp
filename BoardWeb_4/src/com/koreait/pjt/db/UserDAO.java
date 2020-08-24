@@ -6,9 +6,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.koreait.pjt.vo.HistoryVO;
 import com.koreait.pjt.vo.UserVO;
 
 public class UserDAO {
+
+	public static int InsHistory(HistoryVO hVO) {
+		String sql = " INSERT INTO t_user_loginhistory "
+				+ " (i_history, i_user, ip_addr, os, browser, r_dt) "
+				+ " VALUES (seq_userloginhistory.nextval, ?, ?, ?, ?, sysdate) ";
+		
+		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {				
+				ps.setInt(1, hVO.getI_user());
+				ps.setNString(2, hVO.getIp_addr());
+				ps.setNString(3, hVO.getOs());
+				ps.setNString(4, hVO.getBrowser());
+			}
+		});
+	}
 	
 	public static int insUser(UserVO param) {		
 		String sql = " INSERT INTO t_user "
