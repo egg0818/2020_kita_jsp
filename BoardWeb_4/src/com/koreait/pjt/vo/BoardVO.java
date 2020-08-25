@@ -10,9 +10,16 @@ public class BoardVO {
 	private String m_dt;
 	private String nm;
 	private int like;
+	private int likecnt;
 	
 	
 	
+	public int getLikecnt() {
+		return likecnt;
+	}
+	public void setLikecnt(int likecnt) {
+		this.likecnt = likecnt;
+	}
 	public int getLike() {
 		return like;
 	}

@@ -32,6 +32,7 @@
 		<th>작성자</th>
 		<th>조회수</th>
 		<th>작성일시</th>
+		<th>좋아요</th>
 	</tr>
 		<c:forEach items="${list}" var="item">
 		<tr class="itemRow" onclick="moveToDetail(${item.i_board})">
@@ -40,6 +41,7 @@
 			<td>${item.nm} </td>
 			<td>${item.hits} </td>
 			<td>${item.r_dt} </td>
+			<td>${item.likecnt} </td>
 		</tr>
 		</c:forEach>
 	</table>

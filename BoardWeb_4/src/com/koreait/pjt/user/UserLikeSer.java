@@ -23,12 +23,18 @@ public class UserLikeSer extends HttpServlet {
 		UserVO loginUser = MyUtils.getLoginUser(request);
 		String strI_board = request.getParameter("i_board");
 		int i_board = Integer.parseInt(strI_board);
+		String strLike = request.getParameter("like");
+		int like = Integer.parseInt(strLike);
 		
 		BoardVO param = new BoardVO();
 		param.setI_board(i_board);
 		param.setI_user(loginUser.getI_user());
 		
-		BoardDAO.insLike(param);
+		if(like == 0) {
+			BoardDAO.insLike(param);
+		} else {
+			BoardDAO.delLike(param);
+		}
 		
 		response.sendRedirect("/board/detail?i_board=" + i_board);
 	}

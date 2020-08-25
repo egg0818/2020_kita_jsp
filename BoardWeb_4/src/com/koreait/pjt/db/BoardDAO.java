@@ -36,6 +36,7 @@ public class BoardDAO {
 		final List<BoardVO> list = new ArrayList();
 		
 		String sql = " SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt "
+				+ " , (select count(*) from t_board4_like where i_board = A.i_board) as likecnt "
 				+ " FROM t_board4 A "
 				+ " INNER JOIN t_user B "
 				+ " ON A.i_user = B.i_user "
@@ -55,6 +56,7 @@ public class BoardDAO {
 					int i_user = rs.getInt("i_user");
 					String nm = rs.getNString("nm");
 					String r_dt = rs.getNString("r_dt");
+					int likecnt = rs.getInt("likecnt");
 							
 					BoardVO vo = new BoardVO();
 					vo.setI_board(i_board);
@@ -63,6 +65,7 @@ public class BoardDAO {
 					vo.setI_user(i_user);
 					vo.setR_dt(r_dt);
 					vo.setNm(nm);
+					vo.setLikecnt(likecnt);
 					
 					list.add(vo);
 				}
@@ -73,7 +76,8 @@ public class BoardDAO {
 	}
 	
 	public static BoardVO selBoard(BoardVO param) {
-		String sql = " select A.*, C.nm, DECODE(B.i_user, null, 0, 1) as yn_like"
+		String sql = " select A.*, C.nm, DECODE(B.i_user, null, 0, 1) as yn_like "
+				+ " , (select count(*) from t_board4_like where i_board = ?) as likecnt "
 				+ " from t_board4 A "
 				+ " LEFT JOIN t_board4_like B "
 				+ " ON A.i_board = B.i_board "
@@ -85,8 +89,9 @@ public class BoardDAO {
 		int resultInt = JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, param.getI_user()); //로그인 한 사람 i_user
-				ps.setInt(2, param.getI_board());
+				ps.setInt(1, param.getI_board()); 
+				ps.setInt(2, param.getI_user()); //로그인 한 사람 i_user
+				ps.setInt(3, param.getI_board());
 			}
 			@Override
 			public int excuteQuery(ResultSet rs) throws SQLException {
@@ -99,6 +104,7 @@ public class BoardDAO {
 					int hits = rs.getInt("hits");
 					int i_user = rs.getInt("i_user"); //작성자 i_user
 					int like = rs.getInt("yn_like");
+					int likecnt = rs.getInt("likecnt");
 					
 					param.setI_board(i_board);
 					param.setTitle(title);
@@ -108,6 +114,7 @@ public class BoardDAO {
 					param.setR_dt(r_dt);
 					param.setI_user(i_user);
 					param.setLike(like);
+					param.setLikecnt(likecnt);
 					} 
 				return 1;
 				} 		
@@ -188,6 +195,35 @@ public class BoardDAO {
 			}});
 		
 	}
+	
+	public static List<BoardVO> selLikecntlist() {
+		final List<BoardVO> list = new ArrayList();
+		
+		String sql = "select count(*) as likecnt "
+				+ " from t_board4_like "
+				+ " group by i_board";
+		
+		int result = JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+
+			@Override
+			public void prepared(PreparedStatement ps) throws SQLException {}
+				
+			@Override
+			public int excuteQuery(ResultSet rs) throws SQLException {
+				while(rs.next()) {
+					int likecnt = rs.getInt("likecnt");
+							
+					BoardVO vo = new BoardVO();
+					vo.setLikecnt(likecnt);
+					
+					list.add(vo);
+				}
+				return 1;
+			}
+		});
+		return list;
+	}
+	
 	
 		
 }

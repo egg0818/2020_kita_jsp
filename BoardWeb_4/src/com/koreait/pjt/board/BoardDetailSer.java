@@ -50,6 +50,7 @@ public class BoardDetailSer extends HttpServlet {
 		param.setI_board(i_board);
 		param.setI_user(loginUser.getI_user());
 		
+		
 		//단독으로 조회수 올리기 방지! -- [start]
 		ServletContext application = getServletContext(); //어플리케이션 내장객체 얻어오기
 		Integer readI_user = (Integer) application.getAttribute("read_" + strI_board);
