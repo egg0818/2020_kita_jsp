@@ -73,7 +73,7 @@ public class BoardDAO {
 	}
 	
 	public static BoardVO selBoard(BoardVO param) {
-		String sql = " select A.*, C.nm, DECODE(B.i_user, null, 0, 1) as ynLike"
+		String sql = " select A.*, C.nm, DECODE(B.i_user, null, 0, 1) as yn_like"
 				+ " from t_board4 A "
 				+ " LEFT JOIN t_board4_like B "
 				+ " ON A.i_board = B.i_board "
@@ -85,7 +85,7 @@ public class BoardDAO {
 		int resultInt = JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, param.getI_user());
+				ps.setInt(1, param.getI_user()); //로그인 한 사람 i_user
 				ps.setInt(2, param.getI_board());
 			}
 			@Override
@@ -97,8 +97,8 @@ public class BoardDAO {
 					String nm = rs.getNString("nm");
 					String r_dt = rs.getNString("r_dt");
 					int hits = rs.getInt("hits");
-					int i_user = rs.getInt("i_user");
-					int like = rs.getInt("ynLike");
+					int i_user = rs.getInt("i_user"); //작성자 i_user
+					int like = rs.getInt("yn_like");
 					
 					param.setI_board(i_board);
 					param.setTitle(title);
@@ -155,6 +155,36 @@ public class BoardDAO {
 			@Override
 			public void update(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, param.getI_board());
+			}});
+		
+	}
+	
+	public static void insLike(BoardVO param) {
+		String sql = " insert into t_board4_like "
+				+ " (i_user, i_board) "
+				+ " VALUES (?, ?) "; 
+		
+		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, param.getI_user());
+				ps.setInt(2, param.getI_board());
+			}});
+		
+	}
+	
+	public static void delLike(BoardVO param) {
+		String sql = " delete from t_board4_like "
+				+ " where i_board = ? "
+				+ " AND i_user = ? ";
+		
+		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, param.getI_board());
+				ps.setInt(2, param.getI_user());
 			}});
 		
 	}

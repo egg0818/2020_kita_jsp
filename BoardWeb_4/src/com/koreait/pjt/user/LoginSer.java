@@ -22,10 +22,10 @@ public class LoginSer extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//차단
-		if(request.getRemoteAddr().equals("192.168.2.8")) {
-			ViewResolver.foward("user/ipban", request, response);
-			return;
-		}
+//		if(request.getRemoteAddr().equals("192.168.2.8")) {
+//			ViewResolver.foward("user/ipban", request, response);
+//			return;
+//		}
 		
 		HttpSession hs = request.getSession();
 		

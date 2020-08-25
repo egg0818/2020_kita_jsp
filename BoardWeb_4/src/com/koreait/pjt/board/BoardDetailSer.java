@@ -63,8 +63,6 @@ public class BoardDetailSer extends HttpServlet {
 		BoardVO data = BoardDAO.selBoard(param);
 		request.setAttribute("data", data);
 		
-		System.out.println(data.getLike());
-
 		ViewResolver.foward("board/detail", request, response);
 	}
 	

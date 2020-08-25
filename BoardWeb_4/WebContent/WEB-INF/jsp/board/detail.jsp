@@ -2,12 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>상세 페이지</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<style>
+	.material-icons {
+		color : red;
+		cursor: pointer;
+	}
+
+</style>
 </head>
 <body>
 	<div>
@@ -30,7 +38,13 @@
 	<div>작성자 : ${data.nm}</div>
 	<div>작성일시 : ${data.r_dt}</div>
 	<div>조회수 : ${data.hits}</div>
-	<div>좋아요 : ${data.like == 1 ? '❤' : '♡' }</div>
+	<!-- <div>좋아요 : ${data.like == 1 ? '❤' : '♡' }</div>  -->
+	<c:if test="${data.like == 0}"> 
+		<span class="material-icons" onclick="togglelike(${data.like})">favorite_border</span>
+	</c:if>
+	<c:if test="${data.like == 1}">
+		<span class="material-icons" onclick="togglelike(${data.like})">favorite</span>
+	</c:if>
 	<script>	
 		function submitDel() {
 			let cf = confirm('삭제하시겠습니까?');
@@ -38,6 +52,18 @@
 				delFrm.submit();
 			}
 		}
+		
+		function togglelike(like) {
+			if(like == 0) {
+				location.href = '/UserLikeSer?i_board=${data.i_board}'
+				location.href = 'detail?i_board=${data.i_board}'
+			} else {
+				location.href = '/UserUnLikeSer?i_board=${data.i_board}'
+				location.href = 'detail?i_board=${data.i_board}'
+			}
+		}
+		
+		
 	</script>
 </body>
 </html>
