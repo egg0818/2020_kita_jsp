@@ -26,13 +26,14 @@ public class BoardCmtSer extends HttpServlet {
     	int i_board = MyUtils.parseStrToInt(strI_board);
     	String strI_cmt = request.getParameter("i_cmt");
     	int i_cmt = MyUtils.parseStrToInt(strI_cmt);
-    	String strI_user = request.getParameter("i_user");
-    	int i_user = MyUtils.parseStrToInt(strI_user);
+    	UserVO loginUser = MyUtils.getLoginUser(request);
+    	int i_user = loginUser.getI_user();
     	
     //	System.out.println("i_board :" + i_user);
    
     	BoardCmtVO param = new BoardCmtVO();
     	param.setI_cmt(i_cmt);
+    	param.setI_user(i_user);
     	
     	int result = BoardCmtDAO.delCmt(param);
     	response.sendRedirect("/board/detail?i_board=" + i_board);

@@ -128,8 +128,8 @@
 						<c:if test="${ loginUser.i_user == item.i_user }">
 							<form id="cmtFrm" action="/board/cmt" method="post">
 								<a href="#" onclick="updateCmt('${item.cmt}', '${item.i_cmt}')">수정</a>
+	                    		<a href="/board/cmt?i_board=${data.i_board}&i_cmt=${item.i_cmt}&i_user=${item.i_user}" onclick="submitDel2()">삭제</a>
 							</form>
-	                    	<a href="/board/cmt?i_board=${data.i_board}&i_cmt=${item.i_cmt}&i_user=${item.i_user}" onclick="submitDel2()">삭제</a>
 	            		</c:if>
 					</td>
 				</tr>
@@ -144,6 +144,7 @@
 				delFrm.submit();
 			}
 		}
+		
 		function updateCmt(cmt2, i_cmt2) {
 			let cmt = document.querySelector(".cmt-box");
 			cmt.setAttribute("value",cmt2);

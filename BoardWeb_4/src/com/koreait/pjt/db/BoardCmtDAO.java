@@ -82,12 +82,13 @@ public class BoardCmtDAO {
 	}
 	
 	public static int delCmt(final BoardCmtVO param) {
-		String sql = " DELETE FROM T_BOARD4_CMT WHERE i_cmt = ?";
+		String sql = " DELETE FROM T_BOARD4_CMT WHERE i_cmt = ? AND i_user = ?";
 		
 		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
 			@Override
 			public void update(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, param.getI_cmt());
+				ps.setInt(2, param.getI_user());
 			}
 		});
 	}
