@@ -43,7 +43,7 @@ public class BoardCmtDAO {
 				+ " inner join t_user B"
 				+ " on A.i_user = B.i_user "
 				+ " where i_board = ? "
-				+ " ORDER BY i_cmt DESC "
+				+ " ORDER BY i_cmt ASC "
 				;
 		
 		

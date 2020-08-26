@@ -15,6 +15,9 @@
 	background-color: yellow;
 	cursor: pointer;
 }
+#cmtcnt {
+	font-size : 12px;
+}
 </style>
 </head>
 <body>
@@ -37,7 +40,17 @@
 		<c:forEach items="${list}" var="item">
 		<tr class="itemRow" onclick="moveToDetail(${item.i_board})">
 			<td>${item.i_board} </td>
-			<td>${item.title} <small>(${item.cmtcnt})</small> </td>
+			<td>${item.title}
+			<span id="cmtcnt">
+			<c:choose>
+				<c:when test="${item.cmtcnt eq 0}">
+  				</c:when>
+  				<c:otherwise>
+      				(${item.cmtcnt})
+    			</c:otherwise>
+			</c:choose>
+			</span>
+			</td>
 			<td>${item.nm} </td>
 			<td>${item.hits} </td>
 			<td>${item.r_dt} </td>
@@ -50,6 +63,11 @@
 		//console.log('moveToDetail - i_board : ' + i_board)
 		location.href = 'detail?i_board=' + i_board
 	}
+	
+	item.cmtcnt
+	var dd = document.querySelector("#cmtcnt").value;
+
+	
 	</script>
 </body>
 </html>

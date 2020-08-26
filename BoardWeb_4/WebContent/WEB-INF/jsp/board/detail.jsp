@@ -58,6 +58,9 @@
         	font-size: 15px;
         	color: red;
         }
+        .cmt-box {
+        	width: 800px;
+        }
 </style>
 </head>
 <body>
@@ -100,7 +103,7 @@
     			<input type="hidden" name="i_board" value="${data.i_board}">
     			<input type="hidden" name="i_user" value="${data.i_user}">
     			<div>
-    				<input type="text" name="cmt" placeholder="댓글내용">
+    				<input type="text" name="cmt" placeholder="댓글내용" class="cmt-box">
     				<input type="submit" value="전송">
     			</div>
     		</form>
@@ -108,6 +111,12 @@
     	<div>
     		<h3> 댓글 리스트 </h3>
     		<table>
+    			<tr class="cmtRow">
+					<th>번호</th>
+					<th>내용</th>
+					<th>글쓴이</th>
+					<th>등록일</th>
+				</tr>
 		    	<c:forEach items="${list}" var="item">
 				<tr class="cmtRow">
 					<td>${item.i_cmt} </td>
