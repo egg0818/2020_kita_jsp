@@ -14,7 +14,7 @@
 	color: red;
 	cursor: pointer;
     position: relative;
-    left : 850px;
+    left : 900px;
     top: 5px;
 }
 .container {
@@ -53,7 +53,7 @@
         }
         .likecnt {
         	position: relative;
-        	left: 850px;
+        	left: 900px;
         	top: 10px;
         	font-size: 15px;
         	color: red;
@@ -82,14 +82,14 @@
         </div>
         <br><br>
         ${data.i_board}
-        <div class="subject">
-       	 제목 : ${data.title}
-        <c:if test="${data.like == 0}">
+         <c:if test="${data.like == 0}">
             <span class="material-icons" onclick="togglelike()">favorite_border</span><span class="likecnt">${data.likecnt}</span>
         </c:if>
         <c:if test="${data.like == 1}">
             <span class="material-icons" onclick="togglelike()">favorite</span><span class="likecnt">${data.likecnt}</span>
         </c:if>
+        <div class="subject">
+       	 제목 : ${data.title}
         </div>
         <div class="writer">작성자 : ${data.nm}
             <span class="writedate">작성일시 : ${data.r_dt} &nbsp;&nbsp;&nbsp;&nbsp; 조회수 : ${data.hits}</span>
@@ -99,11 +99,11 @@
         
         <div>
     		<form id="cmtFrm" action="/board/cmt" method="post">
-    			<input type="hidden" name="i_cmt" value="0">
+    			<input type="hidden" name="i_cmt" value="0" class="i_cmtt">
     			<input type="hidden" name="i_board" value="${data.i_board}">
     			<input type="hidden" name="i_user" value="${data.i_user}">
     			<div>
-    				<input type="text" name="cmt" placeholder="댓글내용" class="cmt-box">
+    				<input type="text" name="cmt" placeholder="댓글내용" class="cmt-box" value="">
     				<input type="submit" value="전송">
     			</div>
     		</form>
@@ -126,8 +126,8 @@
 					<td>${item.r_dt} </td>
 					<td> 
 						<c:if test="${ loginUser.i_user == item.i_user }">
-							<form>
-							<a href="#">수정</a>
+							<form id="cmtFrm" action="/board/cmt" method="post">
+								<a href="#" onclick="updateCmt('${item.cmt}', '${item.i_cmt}')">수정</a>
 							</form>
 	                    	<a href="/board/cmt?i_board=${data.i_board}&i_cmt=${item.i_cmt}&i_user=${item.i_user}" onclick="submitDel2()">삭제</a>
 	            		</c:if>
@@ -143,6 +143,12 @@
 			if(cf) {
 				delFrm.submit();
 			}
+		}
+		function updateCmt(cmt2, i_cmt2) {
+			let cmt = document.querySelector(".cmt-box");
+			cmt.setAttribute("value",cmt2);
+			let i_cmt = document.querySelector(".i_cmtt");
+			i_cmt.setAttribute("value",i_cmt2);
 		}
 		
 		function togglelike() {

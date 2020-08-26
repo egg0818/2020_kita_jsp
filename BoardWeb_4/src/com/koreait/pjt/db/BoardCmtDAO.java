@@ -91,4 +91,18 @@ public class BoardCmtDAO {
 			}
 		});
 	}
+	
+	public static int updCmt(BoardCmtVO param) {
+		String sql = " update T_BOARD4_CMT "
+				+ " set cmt = ? "
+				+ " where i_cmt = ? ";
+		
+		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setNString(1, param.getCmt());
+				ps.setInt(2, param.getI_cmt());
+			}});
+	}
 }
