@@ -11,9 +11,16 @@ public class BoardVO {
 	private String nm;
 	private int like;
 	private int likecnt;
+	private int cmtcnt;
 	
 	
 	
+	public int getCmtcnt() {
+		return cmtcnt;
+	}
+	public void setCmtcnt(int cmtcnt) {
+		this.cmtcnt = cmtcnt;
+	}
 	public int getLikecnt() {
 		return likecnt;
 	}

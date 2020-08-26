@@ -1,6 +1,7 @@
 package com.koreait.pjt.board;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -10,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.koreait.pjt.db.BoardCmtDAO;
 import com.koreait.pjt.db.BoardDAO;
 import com.koreait.pjt.db.Const;
+import com.koreait.pjt.vo.BoardCmtVO;
 import com.koreait.pjt.vo.BoardVO;
 import com.koreait.pjt.vo.UserVO;
 import com.koreait.pjt.MyUtils;
@@ -63,6 +66,11 @@ public class BoardDetailSer extends HttpServlet {
 		
 		BoardVO data = BoardDAO.selBoard(param);
 		request.setAttribute("data", data);
+		
+		//댓글 리스트 
+		List<BoardCmtVO> list = BoardCmtDAO.selBoardCmtlist(param);
+		request.setAttribute("list", list);
+		
 		
 		ViewResolver.foward("board/detail", request, response);
 	}

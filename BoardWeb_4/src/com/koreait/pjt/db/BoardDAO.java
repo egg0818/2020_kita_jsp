@@ -37,6 +37,7 @@ public class BoardDAO {
 		
 		String sql = " SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt "
 				+ " , (select count(*) from t_board4_like where i_board = A.i_board) as likecnt "
+				+ ", (select count(*) from t_board4_cmt where i_board = A.i_board) as cmtcnt"
 				+ " FROM t_board4 A "
 				+ " INNER JOIN t_user B "
 				+ " ON A.i_user = B.i_user "
@@ -57,7 +58,8 @@ public class BoardDAO {
 					String nm = rs.getNString("nm");
 					String r_dt = rs.getNString("r_dt");
 					int likecnt = rs.getInt("likecnt");
-							
+					int cmtcnt = rs.getInt("cmtcnt");	
+					
 					BoardVO vo = new BoardVO();
 					vo.setI_board(i_board);
 					vo.setTitle(title);
@@ -66,6 +68,7 @@ public class BoardDAO {
 					vo.setR_dt(r_dt);
 					vo.setNm(nm);
 					vo.setLikecnt(likecnt);
+					vo.setCmtcnt(cmtcnt);
 					
 					list.add(vo);
 				}

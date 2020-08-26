@@ -23,6 +23,6 @@
 <fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.vo.HistoryVO"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.db.UserDAO"/>
-<fullyQualifiedTypeName name="com.koreait.pjt.vo.BoardVO"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.db.BoardDAO"/>
+<fullyQualifiedTypeName name="com.koreait.pjt.vo.BoardVO"/>
 </qualifiedTypeNameHistroy>

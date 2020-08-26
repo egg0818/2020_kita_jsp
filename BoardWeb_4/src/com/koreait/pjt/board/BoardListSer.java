@@ -12,8 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import com.koreait.pjt.MyUtils;
 import com.koreait.pjt.ViewResolver;
+import com.koreait.pjt.db.BoardCmtDAO;
 import com.koreait.pjt.db.BoardDAO;
 import com.koreait.pjt.db.Const;
+import com.koreait.pjt.vo.BoardCmtVO;
 import com.koreait.pjt.vo.BoardVO;
 import com.koreait.pjt.vo.UserVO;
 
