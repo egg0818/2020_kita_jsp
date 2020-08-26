@@ -43,8 +43,7 @@ public class BoardCmtDAO {
 				+ " inner join t_user B"
 				+ " on A.i_user = B.i_user "
 				+ " where i_board = ? "
-				+ " ORDER BY i_cmt ASC "
-				;
+				+ " ORDER BY i_cmt ASC ";
 		
 		
 		int result = JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
@@ -80,5 +79,16 @@ public class BoardCmtDAO {
 			}
 		});
 		return list;
+	}
+	
+	public static int delCmt(final BoardCmtVO param) {
+		String sql = " DELETE FROM T_BOARD4_CMT WHERE i_cmt = ?";
+		
+		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, param.getI_cmt());
+			}
+		});
 	}
 }

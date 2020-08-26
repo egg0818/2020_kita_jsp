@@ -63,11 +63,6 @@
 		//console.log('moveToDetail - i_board : ' + i_board)
 		location.href = 'detail?i_board=' + i_board
 	}
-	
-	item.cmtcnt
-	var dd = document.querySelector("#cmtcnt").value;
-
-	
 	</script>
 </body>
 </html>

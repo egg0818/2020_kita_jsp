@@ -116,6 +116,7 @@
 					<th>내용</th>
 					<th>글쓴이</th>
 					<th>등록일</th>
+					<th>비고</th>
 				</tr>
 		    	<c:forEach items="${list}" var="item">
 				<tr class="cmtRow">
@@ -123,6 +124,14 @@
 					<td>${item.cmt} </td>
 					<td>${item.nm} </td>
 					<td>${item.r_dt} </td>
+					<td> 
+						<c:if test="${ loginUser.i_user == item.i_user }">
+							<form>
+							<a href="#">수정</a>
+							</form>
+	                    	<a href="/board/cmt?i_board=${data.i_board}&i_cmt=${item.i_cmt}&i_user=${item.i_user}" onclick="submitDel2()">삭제</a>
+	            		</c:if>
+					</td>
 				</tr>
 				</c:forEach>
     		</table>
