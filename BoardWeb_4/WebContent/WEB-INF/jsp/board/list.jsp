@@ -14,7 +14,7 @@
 	rel="stylesheet">
 <style>
 .container {
-	margin: 0 auto;
+	margin: 50px auto;
 	width: 1000px;
 	text-align: center;
 }
@@ -72,6 +72,16 @@ table td, th {
 	width: 70px;
 	height: 25px;
 }
+.page_div {
+	margin : 20px;
+}
+.page_div a {
+	color: black;
+	text-decoration: none;
+}
+.nowpage {
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -113,9 +123,16 @@ table td, th {
 			</tr>
 			</c:forEach>
 		</table>
-		<div>
-			<c:forEach var="i" begin="1" end="${pagingCnt}">
-				${i}
+		<div class="page_div">
+			<c:forEach var="item" begin="1" end="${pagingCnt}">
+				<c:choose>
+					<c:when test="${nowPage == item}">
+						<span class="nowpage"><strong>${item}</strong></span>
+					</c:when>
+					<c:otherwise>
+	      				<span><a href="/board/list?page=${item}">${item}</a></span>
+	    			</c:otherwise>
+				</c:choose>
 			</c:forEach>
 		</div>
 	</div>

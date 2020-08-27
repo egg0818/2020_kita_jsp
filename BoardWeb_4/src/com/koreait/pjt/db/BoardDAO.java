@@ -31,22 +31,35 @@ public class BoardDAO {
 		});
 	}
 	
-	public static List<BoardVO> selBoardlist() {
+	public static List<BoardVO> selBoardlist(BoardVO vo) {
 		// 레퍼런스 변수에 final 붙이면 주솟값 변경x
 		final List<BoardVO> list = new ArrayList();
 		
-		String sql = " SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt "
+		String sql = " SELECT * FROM"
+				+ " ( "
+				+ " SELECT ROWNUM as RNUM, A.* FROM"
+				+ " ( "
+				+ " SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt "
 				+ " , (select count(*) from t_board4_like where i_board = A.i_board) as likecnt "
 				+ ", (select count(*) from t_board4_cmt where i_board = A.i_board) as cmtcnt"
 				+ " FROM t_board4 A "
 				+ " INNER JOIN t_user B "
 				+ " ON A.i_user = B.i_user "
-				+ " ORDER BY i_board DESC ";
+				+ " ORDER BY i_board DESC "
+				+ " ) A"
+				+ " WHERE ROWNUM <= ? "
+				+ " ) A "
+				+ " WHERE A.RNUM > ? ";
 		
 		int result = JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 
 			@Override
-			public void prepared(PreparedStatement ps) throws SQLException {}
+			public void prepared(PreparedStatement ps) throws SQLException {
+				int eIdx = vo.geteIdx();
+				int sIdx = vo.getSldx();
+				ps.setInt(1, eIdx);
+				ps.setInt(2, sIdx);
+			}
 				
 			@Override
 			public int excuteQuery(ResultSet rs) throws SQLException {

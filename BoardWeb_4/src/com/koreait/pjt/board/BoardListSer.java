@@ -36,8 +36,21 @@ public class BoardListSer extends HttpServlet {
 		param.setRecord_cnt(Const.RECORD_CNT);
 		request.setAttribute("pagingCnt", BoardDAO.selPagingCnt(param));
 
-		List<BoardVO> list = BoardDAO.selBoardlist();
+		int page = MyUtils.getIntParameter(request, "page");
+		page = (page == 0) ? 1: page;
+		
+		request.setAttribute("nowPage", page);
+		
+		int record_cnt = Const.RECORD_CNT;
+		int eIdx = page * record_cnt;
+		int sldx = eIdx - record_cnt;
+		
+		param.seteIdx(eIdx);
+		param.setSldx(sldx);
+		
+		List<BoardVO> list = BoardDAO.selBoardlist(param);
 		request.setAttribute("list", list);
+		
 		
 //		LikeList 선언		
 //		List<BoardVO> likeList = BoardDAO.selLikecntlist();

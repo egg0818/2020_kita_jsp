@@ -13,11 +13,21 @@ public class BoardVO {
 	private int likecnt;
 	private int cmtcnt;
 	private int record_cnt; // 페이지당 나오는 레코드 수 (글 수)
+	private int eIdx; // 페이지당 나오는 레코드 수 (글 수)
+	private int sldx; // 페이지당 나오는 레코드 수 (글 수)
 	
-	
-	
-	
-	
+	public int geteIdx() {
+		return eIdx;
+	}
+	public void seteIdx(int eIdx) {
+		this.eIdx = eIdx;
+	}
+	public int getSldx() {
+		return sldx;
+	}
+	public void setSldx(int sldx) {
+		this.sldx = sldx;
+	}
 	public int getRecord_cnt() {
 		return record_cnt;
 	}
