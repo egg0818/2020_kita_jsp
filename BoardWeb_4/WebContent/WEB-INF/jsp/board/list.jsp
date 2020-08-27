@@ -46,19 +46,37 @@ table td, th {
 }
 .welcome {
 	position : relative;
-	right : 400px;
+	right : 430px;
 }
 .button-write {
 	position : relative;
 	top : 45px;
 	left : 380px;
-	width: 100px;
+}
+.button-write button {
+	background-color: rgb(120, 180, 180);
+	width: 80px;
+	height: 30px;
+	color: white;
+	border: none;
+}
+.button-write button:hover {
+	cursor: pointer;
+}
+.logout {
+	position : relative;
+	right : 200px;
+	color: black;
+}
+.logout button {
+	width: 70px;
+	height: 25px;
 }
 </style>
 </head>
 <body>
 	<div class="container">
-		<a href="/logout">로그아웃</a><br><br>
+		<span class=logout><a href="/logout"><button>로그아웃</button></a></span>
 		<span class=welcome><strong>${loginUser.nm}</strong>님 환영합니다</span>
 		<br>
 		<span class="button-write">
@@ -95,6 +113,11 @@ table td, th {
 			</tr>
 			</c:forEach>
 		</table>
+		<div>
+			<c:forEach var="i" begin="1" end="${pagingCnt}">
+				${i}
+			</c:forEach>
+		</div>
 	</div>
 	<script>
 	function moveToDetail(i_board) {

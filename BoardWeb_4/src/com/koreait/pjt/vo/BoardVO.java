@@ -12,9 +12,18 @@ public class BoardVO {
 	private int like;
 	private int likecnt;
 	private int cmtcnt;
+	private int record_cnt; // 페이지당 나오는 레코드 수 (글 수)
 	
 	
 	
+	
+	
+	public int getRecord_cnt() {
+		return record_cnt;
+	}
+	public void setRecord_cnt(int record_cnt) {
+		this.record_cnt = record_cnt;
+	}
 	public int getCmtcnt() {
 		return cmtcnt;
 	}

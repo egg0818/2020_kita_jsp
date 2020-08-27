@@ -29,7 +29,7 @@
     width: 1000px;
  }
 .content {
-    padding : 100px;
+    padding : 50px;
     padding-bottom : 300px;
     font-size: 15px;
 }

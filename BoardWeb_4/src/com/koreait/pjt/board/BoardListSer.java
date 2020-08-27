@@ -31,6 +31,11 @@ public class BoardListSer extends HttpServlet {
 			return;
 		}
 		
+		// 페이징
+		BoardVO param = new BoardVO();
+		param.setRecord_cnt(Const.RECORD_CNT);
+		request.setAttribute("pagingCnt", BoardDAO.selPagingCnt(param));
+
 		List<BoardVO> list = BoardDAO.selBoardlist();
 		request.setAttribute("list", list);
 		

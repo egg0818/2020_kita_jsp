@@ -227,6 +227,30 @@ public class BoardDAO {
 		return list;
 	}
 	
+	//페이징 숫자 가져오기
+	public static int selPagingCnt(final BoardVO param) {
+		String sql = " SELECT CEIL(COUNT(i_board) / ?) FROM t_board4 ";
+		
+		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+
+			@Override
+			public void prepared(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, param.getRecord_cnt());
+			}
+
+			@Override
+			public int excuteQuery(ResultSet rs) throws SQLException {
+				if(rs.next()) {
+					// 스칼라 (1열1행) 값일 땐 이렇게 가져올 수 있다.
+					// 1은 인덱스 값
+					return rs.getInt(1);
+				}
+				return 0;
+			}
+		
+		});
+	}
+	
 	
 		
 }
