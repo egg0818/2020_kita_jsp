@@ -10,6 +10,8 @@
 <head>
 <meta charset="UTF-8">
 <title>리스트</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 <style>
 .container {
 	margin: 0 auto;
@@ -24,25 +26,45 @@
 	font-size : 12px;
 }
 table {
-	border: 2px solid black;
+	border-top: 2px solid rgb(190, 190, 190);
+	border-bottom: 2px solid rgb(190, 190, 190);
 	border-collapse: collapse;
 	width: 1000px;
 }
 table td, th {
-	border: 2px solid black;
+	border-top: 2px solid rgb(190, 190, 190);
+	border-bottom: 2px solid rgb(190, 190, 190);
 	padding: 10px;
+}
+.title {
+	color : rgb(120, 180, 180);
+	float : left;
+	margin : 30px;
+}
+.material-icons {
+	color: red;
+}
+.welcome {
+	position : relative;
+	right : 400px;
+}
+.button-write {
+	position : relative;
+	top : 45px;
+	left : 380px;
+	width: 100px;
 }
 </style>
 </head>
 <body>
 	<div class="container">
 		<a href="/logout">로그아웃</a><br><br>
-		<div>${loginUser.nm}님 환영합니다</div>
+		<span class=welcome><strong>${loginUser.nm}</strong>님 환영합니다</span>
 		<br>
-		<div>
-			<a href="/board/regmod">글쓰기</a>
-		</div>
-		<h1>리스트</h1>
+		<span class="button-write">
+		<a href="/board/regmod"><button>글쓰기</button></a>
+		</span>
+		<h1 class="title">게시판</h1>
 		<table>
 		<tr>
 			<th>번호</th>
@@ -50,7 +72,7 @@ table td, th {
 			<th>작성자</th>
 			<th>조회수</th>
 			<th>작성일시</th>
-			<th>좋아요</th>
+			<td><span class="material-icons">favorite</span></td>
 		</tr>
 			<c:forEach items="${list}" var="item">
 			<tr class="itemRow" onclick="moveToDetail(${item.i_board})">

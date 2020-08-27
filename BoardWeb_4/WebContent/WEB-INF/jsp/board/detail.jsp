@@ -11,56 +11,78 @@
 	rel="stylesheet">
 <style>
 .material-icons {
+    position: relative;
+    top: 51px;
 	color: red;
 	cursor: pointer;
+    left : 920px;
+}
+.likecnt {
     position: relative;
-    left : 900px;
-    top: 5px;
+    top: 55px;
+    left: 920px;
+    font-size: 15px;
+    color: red;
 }
 .container {
     margin: 0px auto;
     width: 1000px;
  }
 .content {
-    padding : 50px;
+    padding : 100px;
+    padding-bottom : 300px;
     font-size: 15px;
 }
 .writer {
     border-top: 2px solid black;
     background-color:powderblue;
     height: 25px;
-            margin-bottom: 20px;
-            font-size: 15px;
-            text-align: left;
-            padding-top: 10px;
-            padding-left: 15px;
-        }
-        .subject {
-            font-size: 20px;
-            font-weight: bolder;
-        }
-        .index {
-            text-align: right;
-            font-size: 15px;
-            color:gray;
-        }
-        .index, .subject, .writer, .content {
-            margin: 15px;
-        }
-        .writedate {
-            position: relative;
-            left: 500px;
-        }
-        .likecnt {
-        	position: relative;
-        	left: 900px;
-        	top: 10px;
-        	font-size: 15px;
-        	color: red;
-        }
-        .cmt-box {
-        	width: 800px;
-        }
+    margin-bottom: 20px;
+    font-size: 15px;
+    text-align: left;
+    padding-top: 10px;
+    padding-left: 15px;
+}
+.subject {
+    font-size: 20px;
+    font-weight: bolder;
+}
+.index {
+    text-align: right;
+    font-size: 15px;
+    color:gray;
+}
+.index, .subject, .writer, .content {
+    margin: 15px;
+}
+.writedate {
+    position: relative;
+    left: 500px;
+}
+.cmt-box {
+    width: 700px;
+    height: 30px;
+}
+.board_idx {
+	position:relative;
+	left: 15px;
+	font-size: 10px;
+	
+}
+.cotainer_cmt {
+	margin : 0 auto;
+	width : 800px;
+	text-align : center;
+}
+.table_cmt th, td {
+	width: 700px;
+	text-align: center;
+	padding: 10px;
+}
+.cmt-buttons {
+	position:relative;
+	left: 150px;
+}
 </style>
 </head>
 <body>
@@ -81,7 +103,7 @@
             </c:if>
         </div>
         <br><br>
-        ${data.i_board}
+        <!-- <span class="board_idx">${data.i_board}</span> -->
          <c:if test="${data.like == 0}">
             <span class="material-icons" onclick="togglelike()">favorite_border</span><span class="likecnt">${data.likecnt}</span>
         </c:if>
@@ -102,15 +124,16 @@
     			<input type="hidden" name="i_cmt" value="0" class="i_cmtt">
     			<input type="hidden" name="i_board" value="${data.i_board}">
     			<input type="hidden" name="i_user" value="${data.i_user}">
-    			<div>
+    			<div class="cmt-buttons">
     				<input type="text" name="cmt" placeholder="댓글내용" class="cmt-box" value="">
-    				<input type="submit" value="전송">
+    				<input type="submit" value="전송" id="cmtSubmit">
+    				<input type="submit" value="취소" onclick="clkCmtCancel()">
     			</div>
     		</form>
     	</div>
-    	<div>
+    	<div class="cotainer_cmt">
     		<h3> 댓글 리스트 </h3>
-    		<table>
+    		<table class="table_cmt">
     			<tr class="cmtRow">
 					<th>번호</th>
 					<th>내용</th>
@@ -126,10 +149,8 @@
 					<td>${item.r_dt} </td>
 					<td> 
 						<c:if test="${ loginUser.i_user == item.i_user }">
-							<form id="cmtFrm" action="/board/cmt" method="post">
-								<a href="#" onclick="updateCmt('${item.cmt}', '${item.i_cmt}')">수정</a>
-	                    		<a href="/board/cmt?i_board=${data.i_board}&i_cmt=${item.i_cmt}&i_user=${item.i_user}" onclick="submitDel2()">삭제</a>
-							</form>
+								<button onclick="updateCmt('${item.cmt}', '${item.i_cmt}')">수정</button>
+	                    		<button onclick="clkCmtDel(${item.i_cmt})">삭제</button>
 	            		</c:if>
 					</td>
 				</tr>
@@ -146,15 +167,36 @@
 		}
 		
 		function updateCmt(cmt2, i_cmt2) {
+			/*
 			let cmt = document.querySelector(".cmt-box");
-			cmt.setAttribute("value",cmt2);
+			cmt.setAttribute("value", cmt2);
 			let i_cmt = document.querySelector(".i_cmtt");
-			i_cmt.setAttribute("value",i_cmt2);
+			i_cmt.setAttribute("value", i_cmt2);
+			*/
+			
+			cmtFrm.i_cmt.value = i_cmt2;
+			cmtFrm.cmt.value = cmt2;
+			
+			cmtSubmit.value = '수정';
+		}
+		
+		function clkCmtCancel() {
+			cmtFrm.i_cmt = 0;
+			cmtFrm.cmt.value = '';
+			cmtSubmit.value = '전송';
+		}
+		
+		function clkCmtDel(i_cmt) {
+			if(confirm('삭제하시겠습니까?')) {
+				location.href = '/board/cmt?i_board=${data.i_board}&i_cmt=' + i_cmt;
+			}
 		}
 		
 		function togglelike() {
 			location.href = '/UserLikeSer?i_board=${data.i_board}&like=${data.like}';
 		}
+		
+
 		
 	</script>
 </body>
