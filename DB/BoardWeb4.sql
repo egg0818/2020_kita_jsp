@@ -175,3 +175,135 @@ FROM t_board4 A
 INNER JOIN t_user B
 ON A.i_user = B.i_user
 ORDER BY i_board DESC;
+
+-----------------------------------------
+--    댓글테이블 생성
+--    PRIMARY KEY(i_board, i_user) : 이렇게 PK값을 주면 댓글을 한번밖에 못단다
+CREATE TABLE T_BOARD4_CMT (
+    i_cmt NUMBER PRIMARY KEY,
+    i_board NUMBER NOT NULL,
+    i_user NUMBER NOT NULL,
+    cmt NVARCHAR2(500) NOT NULL,
+    r_dt date default sysdate,
+    m_dt date default sysdate,
+    FOREIGN KEY(i_board) REFERENCES t_board4(i_board) ON DELETE CASCADE,
+    FOREIGN KEY(i_user) REFERENCES t_user(i_user) ON DELETE CASCADE
+);
+
+DROP SEQUENCE seq_board4_cmt;
+
+-- 시퀀스 테이블 생성
+CREATE SEQUENCE seq_board4_cmt
+start with 0
+minvalue 0
+nocache;
+
+-- 댓글 삽입
+insert into T_BOARD4_CMT 
+(i_cmt, i_board, i_user, cmt)
+values (seq_board4_cmt.nextval, 68, 36, 'ddd');
+
+select * from T_BOARD4_CMT;
+
+select i_cmt, i_board, i_user, cmt, r_dt, m_dt
+from T_BOARD4_CMT;
+
+-- i_user값은 수정 및 삭제할 때 필요하다.
+-- order by 할 땐 정수값으로 해야한다. 스트링보다 빠르기때문에!
+select A.i_cmt, A.i_board, A.i_user, B.nm, A.cmt, A.r_dt, A.m_dt
+from T_BOARD4_CMT A
+inner join t_user B
+on A.i_user = B.i_user
+where i_board = 57
+ORDER BY i_cmt DESC
+;
+
+delete from T_BOARD4_CMT;
+
+commit;
+
+-- 게시판 리스트에 댓글 수 추가
+SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt,
+(select count(*) from t_board4_like where i_board = A.i_board) as likecnt,
+(select count(*) from t_board4_cmt where i_board = A.i_board) as cmtcnt
+FROM t_board4 A
+INNER JOIN t_user B
+ON A.i_user = B.i_user
+ORDER BY i_board DESC;
+
+DELETE FROM T_BOARD4_CMT WHERE i_cmt = 46;
+DELETE FROM T_BOARD4_CMT WHERE i_cmt = 44;
+
+update T_BOARD4_CMT
+set cmt = 'asd'
+where i_cmt = 48;
+
+update T_BOARD4_CMT
+set cmt = 'aasd'
+where i_cmt = 37;
+
+delete from T_BOARD4_CMT
+where i_cmt = 70;
+
+commit;
+
+select * from t_user;
+
+------------------------------------------------------
+-- 페이징 시작 
+
+-- 글갯수 확인 : 70
+select ceil(count(*)/6) from t_board4;
+
+/* <실수 함수>
+floor : 내림 
+round : 반올림
+ceil : 올림
+*/
+
+-- ROWNUM : 모든 레코드 하나하나에 일련번호를 주는 것
+SELECT ROWNUM AS RNUM, A.*
+FROM t_board4 A;
+
+-- 페이징
+-- i_board 는 글이 삭제 될수도 있기때문에 ROWNUM을 쓰는 것이다
+SELECT B.*
+FROM (
+SELECT
+ROWNUM AS RNUM, A.*
+FROM t_board4 A
+WHERE ROWNUM <= 30
+)B
+WHERE B.rnum > 20;
+
+SELECT * FROM
+(
+    SELECT ROWNUM as RNUM, A.* FROM
+    (
+                 SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt 
+				 ,(select count(*) from t_board4_like where i_board = A.i_board) as likecnt 
+				 ,(select count(*) from t_board4_cmt where i_board = A.i_board) as cmtcnt
+				 FROM t_board4 A 
+				 INNER JOIN t_user B 
+				 ON A.i_user = B.i_user 
+				 ORDER BY i_board DESC
+    ) A
+    WHERE ROWNUM <= 30
+) A
+WHERE A.RNUM > 20;
+
+
+
+/* mysql문 페이징
+SELECT A.*
+FROM t_board4 A
+LIMIT 0, 20;
+*/
+
+select
+ceil(count(i_board) / 20)
+from t_board4
+where title like '%하하%'
+);
+
+select * from t_user;
