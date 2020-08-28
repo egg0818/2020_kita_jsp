@@ -32,6 +32,9 @@ public class BoardListSer extends HttpServlet {
 			return;
 		}
 		
+		String searchText = request.getParameter("searchText");
+		searchText = (searchText == null) ? "" : searchText;
+		
 		// 페이징 start
 		int page = MyUtils.getIntParameter(request, "page");
 		page = (page == 0) ? 1: page;
@@ -41,23 +44,23 @@ public class BoardListSer extends HttpServlet {
 		
 		BoardVO param = new BoardVO();
 		param.setRecord_cnt(recordCnt);
+		// sql 에러 방지
+		param.setSearchText("%" + searchText + "%");
+		
 		int pagingCnt = BoardDAO.selPagingCnt(param);
+		
 		request.setAttribute("pagingCnt", pagingCnt);
 		request.setAttribute("nowPage", page);
+		
+		if(page > pagingCnt) {
+			page = pagingCnt;
+		}
 		
 		int eIdx = page * recordCnt;
 		int sldx = eIdx - recordCnt;
 		
 		param.seteIdx(eIdx);
 		param.setSldx(sldx);
-		
-		Integer beforeRecordCnt = (Integer)hs.getAttribute("recordCnt");
-		
-		//이전 레코드수 값이 있고, 이전 레코드수보다 변경한 레코드 수가 더 크다면 마지막 페이지수로 변경
-		if(beforeRecordCnt != null && beforeRecordCnt < recordCnt) {  
-			page = pagingCnt;
-		}
-		
 		//페이징 end
 		
 		List<BoardVO> list = BoardDAO.selBoardlist(param);

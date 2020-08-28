@@ -145,6 +145,12 @@ table td, th {
 			</tr>
 			</c:forEach>
 		</table>
+		<div class="search">
+			<form action="/board/list">
+				<input type="search" name="searchText">
+				<input type="submit" value="검색">				
+			</form>
+		</div>
 		<div class="page_div">
 			<c:forEach var="item" begin="1" end="${pagingCnt}">
 				<c:choose>

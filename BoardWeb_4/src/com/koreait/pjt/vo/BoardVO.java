@@ -15,7 +15,14 @@ public class BoardVO {
 	private int record_cnt; // 페이지당 나오는 레코드 수 (글 수)
 	private int eIdx; // 페이지당 나오는 레코드 수 (글 수)
 	private int sldx; // 페이지당 나오는 레코드 수 (글 수)
+	private String searchText;
 	
+	public String getSearchText() {
+		return searchText;
+	}
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
 	public int geteIdx() {
 		return eIdx;
 	}

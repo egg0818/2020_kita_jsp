@@ -45,6 +45,7 @@ public class BoardDAO {
 				+ " FROM t_board4 A "
 				+ " INNER JOIN t_user B "
 				+ " ON A.i_user = B.i_user "
+				+ " WHERE A.title like ? "
 				+ " ORDER BY i_board DESC "
 				+ " ) A"
 				+ " WHERE ROWNUM <= ? "
@@ -57,8 +58,9 @@ public class BoardDAO {
 			public void prepared(PreparedStatement ps) throws SQLException {
 				int eIdx = vo.geteIdx();
 				int sIdx = vo.getSldx();
-				ps.setInt(1, eIdx);
-				ps.setInt(2, sIdx);
+				ps.setNString(1, vo.getSearchText());
+				ps.setInt(2, eIdx);
+				ps.setInt(3, sIdx);
 			}
 				
 			@Override
@@ -242,13 +244,15 @@ public class BoardDAO {
 	
 	//페이징 숫자 가져오기
 	public static int selPagingCnt(final BoardVO param) {
-		String sql = " SELECT CEIL(COUNT(i_board) / ?) FROM t_board4 ";
+		String sql = " SELECT CEIL(COUNT(i_board) / ?) FROM t_board4 "
+				+ " WHERE title like ? ";
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, param.getRecord_cnt());
+				ps.setNString(2, param.getSearchText());
 			}
 
 			@Override
