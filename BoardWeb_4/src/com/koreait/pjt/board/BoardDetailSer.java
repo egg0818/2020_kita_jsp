@@ -71,6 +71,7 @@ public class BoardDetailSer extends HttpServlet {
 		List<BoardCmtVO> list = BoardCmtDAO.selBoardCmtlist(param);
 		request.setAttribute("list", list);
 		
+	
 		
 		ViewResolver.foward("board/detail", request, response);
 	}

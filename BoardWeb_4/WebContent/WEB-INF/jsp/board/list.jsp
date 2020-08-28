@@ -4,7 +4,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,13 +82,35 @@ table td, th {
 .nowpage {
 	color: red;
 }
+.pageNumber {
+	position: relative;
+	left: 430px;
+}
 </style>
 </head>
 <body>
 	<div class="container">
-		<span class=logout><a href="/logout"><button>로그아웃</button></a></span>
-		<span class=welcome><strong>${loginUser.nm}</strong>님 환영합니다</span>
+		<span class="logout"><a href="/logout"><button>로그아웃</button></a></span>
+		<span class="welcome"><strong>${loginUser.nm}</strong>님 환영합니다</span>
 		<br>
+		<div class="pageNumber">
+			<form id="selFrm" action="/board/list" method="get">
+				<input type="hidden" name="page" value="${page}">
+				레코드 수 :
+				<select name="record_cnt" onchange="changeRecordCnt()">
+					<c:forEach begin="10" end="30" step="10" var="item">
+						<c:choose>
+							<c:when test="${param.record_cnt == item}">
+								<option value="${item}" selected>${item}개</option>
+							</c:when>
+						<c:otherwise>
+							<option value="${item}"> ${item}개</option>
+						</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</select>
+			</form>
+		</div>
 		<span class="button-write">
 		<a href="/board/regmod"><button>글쓰기</button></a>
 		</span>
@@ -130,7 +152,7 @@ table td, th {
 						<span class="nowpage"><strong>${item}</strong></span>
 					</c:when>
 					<c:otherwise>
-	      				<span><a href="/board/list?page=${item}">${item}</a></span>
+	      				<span><a href="/board/list?page=${item}&record_cnt=${param.record_cnt}">${item}</a></span>
 	    			</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -139,7 +161,11 @@ table td, th {
 	<script>
 	function moveToDetail(i_board) {
 		//console.log('moveToDetail - i_board : ' + i_board)
-		location.href = 'detail?i_board=' + i_board
+		location.href = 'detail?i_board=' + i_board;
+	}
+	function changeRecordCnt() {
+		selFrm.submit();
+		
 	}
 	</script>
 </body>

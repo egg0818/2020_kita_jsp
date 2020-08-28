@@ -26,27 +26,39 @@ public class BoardListSer extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession hs = request.getSession();
+		
 		if(hs.getAttribute(Const.LOGIN_USER) == null) {
 			response.sendRedirect("/login");
 			return;
 		}
 		
-		// 페이징
-		BoardVO param = new BoardVO();
-		param.setRecord_cnt(Const.RECORD_CNT);
-		request.setAttribute("pagingCnt", BoardDAO.selPagingCnt(param));
-
+		// 페이징 start
 		int page = MyUtils.getIntParameter(request, "page");
 		page = (page == 0) ? 1: page;
 		
+		int recordCnt = MyUtils.getIntParameter(request, "record_cnt");
+		recordCnt = (recordCnt == 0 ? 10 : recordCnt);
+		
+		BoardVO param = new BoardVO();
+		param.setRecord_cnt(recordCnt);
+		int pagingCnt = BoardDAO.selPagingCnt(param);
+		request.setAttribute("pagingCnt", pagingCnt);
 		request.setAttribute("nowPage", page);
 		
-		int record_cnt = Const.RECORD_CNT;
-		int eIdx = page * record_cnt;
-		int sldx = eIdx - record_cnt;
+		int eIdx = page * recordCnt;
+		int sldx = eIdx - recordCnt;
 		
 		param.seteIdx(eIdx);
 		param.setSldx(sldx);
+		
+		Integer beforeRecordCnt = (Integer)hs.getAttribute("recordCnt");
+		
+		//이전 레코드수 값이 있고, 이전 레코드수보다 변경한 레코드 수가 더 크다면 마지막 페이지수로 변경
+		if(beforeRecordCnt != null && beforeRecordCnt < recordCnt) {  
+			page = pagingCnt;
+		}
+		
+		//페이징 end
 		
 		List<BoardVO> list = BoardDAO.selBoardlist(param);
 		request.setAttribute("list", list);
@@ -59,7 +71,8 @@ public class BoardListSer extends HttpServlet {
 //		request.setAttribute("name", hs.getAttribute(Const.LOGIN_USER));
 		request.setAttribute("name", "loginUser");
 		
-		
+		hs.setAttribute("recordCnt", recordCnt);
+		hs.setAttribute("pageinList", page);
 		ViewResolver.fowardLoginChk("board/list", request, response);
 	}
 
