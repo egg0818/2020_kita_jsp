@@ -96,6 +96,7 @@ table td, th {
 		<div class="pageNumber">
 			<form id="selFrm" action="/board/list" method="get">
 				<input type="hidden" name="page" value="${page}">
+				<input type="hidden" name="searchText" value="${param.searchText}">
 				레코드 수 :
 				<select name="record_cnt" onchange="changeRecordCnt()">
 					<c:forEach begin="10" end="30" step="10" var="item">
@@ -147,8 +148,9 @@ table td, th {
 		</table>
 		<div class="search">
 			<form action="/board/list">
-				<input type="search" name="searchText">
-				<input type="submit" value="검색">				
+				<input type="search" name="searchText" value="${searchText}">
+				<input type="hidden" name="record_cnt" value="${param.record_cnt}">
+				<input type="submit" value="검색">			
 			</form>
 		</div>
 		<div class="page_div">
@@ -158,7 +160,7 @@ table td, th {
 						<span class="nowpage"><strong>${item}</strong></span>
 					</c:when>
 					<c:otherwise>
-	      				<span><a href="/board/list?page=${item}&record_cnt=${param.record_cnt}">${item}</a></span>
+	      				<span><a href="/board/list?page=${item}&record_cnt=${param.record_cnt}&searchText=${param.searchText}">${item}</a></span>
 	    			</c:otherwise>
 				</c:choose>
 			</c:forEach>

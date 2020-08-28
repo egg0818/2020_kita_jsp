@@ -89,17 +89,17 @@
 <div class="container">
         <div>
         	<!-- BoardlistSer에서 가져온 세션 값을 활용 -->
-            <a href="/board/list?page=${pageinList}&record_cnt=${recordCnt}"> 리스트 </a>
+            <a href="/board/list?page=${pageinList}&record_cnt=${recordCnt}&searchText=${searchText}"> 리스트 </a>
             <!-- loginUser는 세션에 들어가있고, 로그인할때 값을 넣어줌 -->
             <!-- c:if 는 tl문 -->
             <c:if test="${ loginUser.i_user == data.i_user }">
                 <div>
-                    <a href="/board/regmod?i_board=${data.i_board}">수정</a>
+                    <a href="/board/regmod?i_board=${data.i_board}"><button>수정</button></a>
                 </div>
                 <form action="/board/del" method="post" id="delFrm">
                     <input type="hidden" name="i_board" value="${data.i_board}">
                     <!-- <input type="button" value="삭제"> -->
-                    <a href="#" onclick="submitDel()">삭제</a>
+                    <a href="#" onclick="submitDel()"><button>삭제</button></a>
                 </form>
             </c:if>
         </div>

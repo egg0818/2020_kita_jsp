@@ -76,6 +76,7 @@ public class BoardListSer extends HttpServlet {
 		
 		hs.setAttribute("recordCnt", recordCnt);
 		hs.setAttribute("pageinList", page);
+		hs.setAttribute("searchText", searchText);
 		ViewResolver.fowardLoginChk("board/list", request, response);
 	}
 

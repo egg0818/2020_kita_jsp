@@ -13,6 +13,9 @@
     margin : 0 auto;
     padding: 30px;
 }
+*:focus {
+outline: none;
+}
 form {
 }
 form div {
