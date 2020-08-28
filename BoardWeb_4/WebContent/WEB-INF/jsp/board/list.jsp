@@ -91,6 +91,7 @@ table td, th {
 <body>
 	<div class="container">
 		<span class="logout"><a href="/logout"><button>로그아웃</button></a></span>
+		<div><a href="/profile">프로필</a></div>
 		<span class="welcome"><strong>${loginUser.nm}</strong>님 환영합니다</span>
 		<br>
 		<div class="pageNumber">

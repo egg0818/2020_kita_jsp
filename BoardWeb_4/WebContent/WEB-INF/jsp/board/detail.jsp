@@ -196,9 +196,6 @@
 		function togglelike() {
 			location.href = '/UserLikeSer?i_board=${data.i_board}&like=${data.like}';
 		}
-		
-
-		
 	</script>
 </body>
 </html>
