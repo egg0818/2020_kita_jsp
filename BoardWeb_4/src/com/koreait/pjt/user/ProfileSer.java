@@ -69,7 +69,7 @@ public class ProfileSer extends HttpServlet {
 				System.out.println("originFileNm : " + originFileNm);
 				
 				File oldFile = new File(savePath + "/" + fileNm);
-				File newFile = new File(savePath + "/" + UUID.randomUUID() + ".jpg");
+				File newFile = new File(savePath + "/" + UUID.randomUUID() + fileNm.substring(fileNm.lastIndexOf("."), fileNm.length()));
 				
 				oldFile.renameTo(newFile);
 			}
