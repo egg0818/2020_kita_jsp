@@ -51,6 +51,7 @@ public class ProfileSer extends HttpServlet {
 		// fileNm 정책에의해서 가져오는 파일명
 		String fileNm = "";
 		String originFileNm = "";
+		String saveFileNm = null ;
 		
 		try {
 			MultipartRequest mr = new MultipartRequest(request, savePath,
@@ -58,24 +59,35 @@ public class ProfileSer extends HttpServlet {
 			
 			Enumeration files = mr.getFileNames();
 			
-			while(files.hasMoreElements()) {
+			if(files.hasMoreElements()) {
 				// 키 값이 넘어감
 				String key = (String) files.nextElement();
 				fileNm = mr.getFilesystemName(key);
 				originFileNm = mr.getOriginalFileName(key);
+				String ext = fileNm.substring(fileNm.lastIndexOf("."));
+				saveFileNm = UUID.randomUUID() + ext;
 				
 				System.out.println("key : " + key);
 				System.out.println("fileNm : " + fileNm);
 				System.out.println("originFileNm : " + originFileNm);
 				
 				File oldFile = new File(savePath + "/" + fileNm);
-				File newFile = new File(savePath + "/" + UUID.randomUUID() + fileNm.substring(fileNm.lastIndexOf("."), fileNm.length()));
+				File newFile = new File(savePath + "/" + saveFileNm);
 				
 				oldFile.renameTo(newFile);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		if(saveFileNm != null) { //DB에 파일명 저장
+			UserVO param = new UserVO();
+			param.setProfile_img(saveFileNm);
+			param.setI_user(loginUser.getI_user());
+			UserDAO.updUser(param);
+		}
+		
+		response.sendRedirect("/profile");
 	}
 
 }
