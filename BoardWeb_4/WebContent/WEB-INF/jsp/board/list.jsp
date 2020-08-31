@@ -65,6 +65,7 @@ table td, th {
 }
 .logout {
 	position : relative;
+	top:3px;
 	right : 200px;
 	color: black;
 }
@@ -86,13 +87,13 @@ table td, th {
 	position: relative;
 	left: 430px;
 }
+
 </style>
 </head>
 <body>
 	<div class="container">
 		<span class="logout"><a href="/logout"><button>로그아웃</button></a></span>
-		<div><a href="/profile">프로필</a></div>
-		<span class="welcome"><strong>${loginUser.nm}</strong>님 환영합니다</span>
+		<span class="welcome"><a href="/profile"><strong>${loginUser.nm}</strong></a>님 환영합니다</span>
 		<br>
 		<div class="pageNumber">
 			<form id="selFrm" action="/board/list" method="get">

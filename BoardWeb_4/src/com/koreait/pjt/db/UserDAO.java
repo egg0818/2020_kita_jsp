@@ -96,7 +96,7 @@ public class UserDAO {
 				ps.setInt(1, i_user);
 				
 			}
-
+			
 			@Override
 			public int excuteQuery(ResultSet rs) throws SQLException {
 				if(rs.next()) {
