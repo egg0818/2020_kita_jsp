@@ -83,6 +83,17 @@
 	position:relative;
 	left: 150px;
 }
+.containerPImg {
+	display: inline-block;	
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	overflow: hidden;
+	}
+.pImg {
+	object-fit: cover;
+	max-width:100%;
+	}
 </style>
 </head>
 <body>
@@ -115,8 +126,18 @@
        	 제목 : ${data.title}
         </div>
         <div class="writer">작성자 : ${data.nm}
-            <span class="writedate">작성일시 : ${data.r_dt} &nbsp;&nbsp;&nbsp;&nbsp; 조회수 : ${data.hits}</span>
+        <span class="writedate">작성일시 : ${data.r_dt} &nbsp;&nbsp;&nbsp;&nbsp; 조회수 : ${data.hits}</span>
         </div>
+        <div class="containerPImg">
+			<c:choose>
+				<c:when test="${uvo.profile_img != null}">
+					<img class="pImg" src="/img/user/${uvo.i_user}/${uvo.profile_img}">
+				</c:when>
+				<c:otherwise>
+					<img class="pImg" src="/img/default_profile.png">
+				</c:otherwise>
+			</c:choose>
+		</div>
         <div class="content">${data.ctnt}</div>
         <!-- <div>좋아요 : ${data.like == 1 ? '❤' : '♡' }</div>  -->
         

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.koreait.pjt.db.BoardCmtDAO;
 import com.koreait.pjt.db.BoardDAO;
 import com.koreait.pjt.db.Const;
+import com.koreait.pjt.db.UserDAO;
 import com.koreait.pjt.vo.BoardCmtVO;
 import com.koreait.pjt.vo.BoardVO;
 import com.koreait.pjt.vo.UserVO;
@@ -44,6 +45,8 @@ public class BoardDetailSer extends HttpServlet {
 		String strI_board = request.getParameter("i_board");
 		int i_board = Integer.parseInt(strI_board);
 		
+		String profile_img = request.getParameter("profile_img");
+		
 		if(i_board==0) {
 			response.sendRedirect("/board/list");
 			return;
@@ -66,6 +69,14 @@ public class BoardDetailSer extends HttpServlet {
 		
 		BoardVO data = BoardDAO.selBoard(param);
 		request.setAttribute("data", data);
+		
+		//프로필 사진 올리기
+		String strI_user = request.getParameter("i_user");
+		int i_user = Integer.parseInt(strI_user);
+		System.out.println("i_user : " + i_user);
+		UserVO uvo = UserDAO.selUser(i_user);
+		uvo.setI_user(i_user);
+		request.setAttribute("uvo", uvo);
 		
 		//댓글 리스트 
 		List<BoardCmtVO> list = BoardCmtDAO.selBoardCmtlist(param);

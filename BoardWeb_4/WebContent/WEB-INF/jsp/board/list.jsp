@@ -140,7 +140,7 @@ table td, th {
 			<td><span class="material-icons">favorite</span></td>
 		</tr>
 			<c:forEach items="${list}" var="item">
-			<tr class="itemRow" onclick="moveToDetail(${item.i_board})">
+			<tr class="itemRow" onclick="moveToDetail(${item.i_board}, ${item.i_user})">
 				<td>${item.i_board} </td>
 				<td>${item.title}
 				<span id="cmtcnt">
@@ -193,9 +193,9 @@ table td, th {
 		</div>
 	</div>
 	<script>
-	function moveToDetail(i_board) {
+	function moveToDetail(i_board, i_user) {
 		//console.log('moveToDetail - i_board : ' + i_board)
-		location.href = 'detail?i_board=' + i_board;
+		location.href = 'detail?i_board=' + i_board + '&i_user=' + i_user;
 	}
 	function changeRecordCnt() {
 		selFrm.submit();

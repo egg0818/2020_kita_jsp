@@ -67,7 +67,7 @@ public class BoardCmtSer extends HttpServlet {
 			break;
 		}
 		
-		response.sendRedirect("/board/detail?i_board="+i_board);
+		response.sendRedirect("/board/detail?i_board="+i_board+"&i_user="+i_user);
 	}
 
 }
