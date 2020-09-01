@@ -13,10 +13,10 @@
 		<div>
 			<c:choose>
 				<c:when test="${data.profile_img == (null)}">
-					<img src="img/default_profile.png" width="200px">
+					<img src="img/default_profile.png" width=200px>
 				</c:when>
 				<c:otherwise>
-					<img src="/img/user/${loginUser.i_user}/${data.profile_img}" width=200px;>
+					<img src="/img/user/${loginUser.i_user}/${data.profile_img}" width=200px>
 				</c:otherwise>
 			</c:choose>
 		</div>

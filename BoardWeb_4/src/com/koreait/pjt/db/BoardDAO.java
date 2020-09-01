@@ -39,7 +39,7 @@ public class BoardDAO {
 				+ " ( "
 				+ " SELECT ROWNUM as RNUM, A.* FROM"
 				+ " ( "
-				+ " SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt "
+				+ " SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt, B.profile_img "
 				+ " , (select count(*) from t_board4_like where i_board = A.i_board) as likecnt "
 				+ ", (select count(*) from t_board4_cmt where i_board = A.i_board) as cmtcnt"
 				+ " FROM t_board4 A "
@@ -61,6 +61,7 @@ public class BoardDAO {
 				ps.setNString(1, vo.getSearchText());
 				ps.setInt(2, eIdx);
 				ps.setInt(3, sIdx);
+				
 			}
 				
 			@Override
@@ -74,6 +75,7 @@ public class BoardDAO {
 					String r_dt = rs.getNString("r_dt");
 					int likecnt = rs.getInt("likecnt");
 					int cmtcnt = rs.getInt("cmtcnt");	
+					String profile_img = rs.getNString("profile_img");
 					
 					BoardVO vo = new BoardVO();
 					vo.setI_board(i_board);
@@ -84,6 +86,7 @@ public class BoardDAO {
 					vo.setNm(nm);
 					vo.setLikecnt(likecnt);
 					vo.setCmtcnt(cmtcnt);
+					vo.setProfile_img(profile_img);
 					
 					list.add(vo);
 				}

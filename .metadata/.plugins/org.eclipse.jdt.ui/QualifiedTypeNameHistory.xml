@@ -27,4 +27,9 @@
 <fullyQualifiedTypeName name="com.koreait.pjt.db.UserDAO"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.vo.UserVO"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.MyUtils"/>
+<fullyQualifiedTypeName name="com.oreilly.servlet.MultipartRequest"/>
+<fullyQualifiedTypeName name="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"/>
+<fullyQualifiedTypeName name="java.util.Enumeration"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.util.UUID"/>
 </qualifiedTypeNameHistroy>

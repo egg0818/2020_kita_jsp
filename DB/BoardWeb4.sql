@@ -227,6 +227,7 @@ SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt,
 (select count(*) from t_board4_like where i_board = A.i_board) as likecnt,
 (select count(*) from t_board4_cmt where i_board = A.i_board) as cmtcnt
 FROM t_board4 A
+
 INNER JOIN t_user B
 ON A.i_user = B.i_user
 ORDER BY i_board DESC;
@@ -303,7 +304,10 @@ LIMIT 0, 20;
 select
 ceil(count(i_board) / 20)
 from t_board4
-where title like '%馬馬%'
-);
+where title like '%馬馬%';
+
 
 select * from t_user;
+
+
+select NVL(NM, 0) from t_user where user_id = '100';

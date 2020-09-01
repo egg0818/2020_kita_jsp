@@ -16,7 +16,14 @@ public class BoardVO {
 	private int eIdx; // 페이지당 나오는 레코드 수 (글 수)
 	private int sldx; // 페이지당 나오는 레코드 수 (글 수)
 	private String searchText;
+	private String profile_img;
 	
+	public String getProfile_img() {
+		return profile_img;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
+	}
 	public String getSearchText() {
 		return searchText;
 	}
