@@ -35,22 +35,39 @@ public class BoardDAO {
 		// 레퍼런스 변수에 final 붙이면 주솟값 변경x
 		final List<BoardVO> list = new ArrayList();
 		
-		String sql = " SELECT * FROM"
-				+ " ( "
-				+ " SELECT ROWNUM as RNUM, A.* FROM"
-				+ " ( "
-				+ " SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt, B.profile_img "
-				+ " , (select count(*) from t_board4_like where i_board = A.i_board) as likecnt "
-				+ ", (select count(*) from t_board4_cmt where i_board = A.i_board) as cmtcnt"
-				+ " FROM t_board4 A "
-				+ " INNER JOIN t_user B "
-				+ " ON A.i_user = B.i_user "
-				+ " WHERE A.title like ? "
-				+ " ORDER BY i_board DESC "
-				+ " ) A"
-				+ " WHERE ROWNUM <= ? "
-				+ " ) A "
-				+ " WHERE A.RNUM > ? ";
+//		String sql = " SELECT * FROM"
+//				+ " ( "
+//				+ " SELECT ROWNUM as RNUM, A.* FROM"
+//				+ " ( "
+//				+ " SELECT A.i_board, A.title, A.hits, A.i_user, B.nm, A.r_dt, B.profile_img "
+//				+ " , (select count(*) from t_board4_like where i_board = A.i_board) as likecnt "
+//				+ ", (select count(*) from t_board4_cmt where i_board = A.i_board) as cmtcnt"
+//				+ " FROM t_board4 A "
+//				+ " INNER JOIN t_user B "
+//				+ " ON A.i_user = B.i_user "
+//				+ " WHERE A.title like ? "
+//				+ " ORDER BY i_board DESC "
+//				+ " ) A"
+//				+ " WHERE ROWNUM <= ? "
+//				+ " ) A "
+//				+ " WHERE A.RNUM > ? ";
+		
+		String sql =  "select A.* from (select  rownum as rnum, A.* from (select A.i_board, A.title, A.hits, B.i_user, B.nm, A.r_dt, B.profile_img, " 
+		           + " nvl(c.cnt, 0) as c_like, nvl(d.cmt_cnt,0) as c_cmt, decode(e.i_board, null,0,1) as yn_like "
+		           + " from t_board4 A "
+		              + " left join t_user B "
+		          + " on A.i_user = B.i_user "
+		             + " left join " 
+		             + " (select i_board,count(i_board) as cnt from t_board4_like group by i_board ) C "
+		             + " on a.i_board=c.i_board "
+		             + " left join "
+		             + " (select i_board, count(i_board) as cmt_cnt from t_board4_cmt group by i_board) D "
+		             + " on a.i_board=d.i_board "
+		             + " left join "
+		             + " (select i_board from t_board4_like where i_user = ? ) E "
+		             + " on a.i_board = e.i_board "
+		             + " where a.title like ? "
+		           + " order by A.i_board desc) A where rownum<=? ) A where a.rnum>?";
 		
 		int result = JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 
@@ -58,9 +75,10 @@ public class BoardDAO {
 			public void prepared(PreparedStatement ps) throws SQLException {
 				int eIdx = vo.geteIdx();
 				int sIdx = vo.getSldx();
-				ps.setNString(1, vo.getSearchText());
-				ps.setInt(2, eIdx);
-				ps.setInt(3, sIdx);
+				ps.setInt(1, vo.getI_user());
+				ps.setNString(2, vo.getSearchText());
+				ps.setInt(3, eIdx);
+				ps.setInt(4, sIdx);
 				
 			}
 				
@@ -73,9 +91,12 @@ public class BoardDAO {
 					int i_user = rs.getInt("i_user");
 					String nm = rs.getNString("nm");
 					String r_dt = rs.getNString("r_dt");
-					int likecnt = rs.getInt("likecnt");
-					int cmtcnt = rs.getInt("cmtcnt");	
+//					int likecnt = rs.getInt("likecnt");
+					int c_like = rs.getInt("c_like");
+//					int cmtcnt = rs.getInt("cmtcnt");	
+					int c_cmt = rs.getInt("c_cmt");	
 					String profile_img = rs.getNString("profile_img");
+					int yn_like = rs.getInt("yn_like");
 					
 					BoardVO vo = new BoardVO();
 					vo.setI_board(i_board);
@@ -84,9 +105,12 @@ public class BoardDAO {
 					vo.setI_user(i_user);
 					vo.setR_dt(r_dt);
 					vo.setNm(nm);
-					vo.setLikecnt(likecnt);
-					vo.setCmtcnt(cmtcnt);
+//					vo.setLikecnt(likecnt);
+					vo.setLikecnt(c_like);
+//					vo.setCmtcnt(cmtcnt);
+					vo.setCmtcnt(c_cmt);
 					vo.setProfile_img(profile_img);
+					vo.setYn_like(yn_like);
 					
 					list.add(vo);
 				}

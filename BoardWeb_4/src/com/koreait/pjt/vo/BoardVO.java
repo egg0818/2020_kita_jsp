@@ -17,7 +17,16 @@ public class BoardVO {
 	private int sldx; // 페이지당 나오는 레코드 수 (글 수)
 	private String searchText;
 	private String profile_img;
+	private int yn_like;
 	
+	
+	
+	public int getYn_like() {
+		return yn_like;
+	}
+	public void setYn_like(int yn_like) {
+		this.yn_like = yn_like;
+	}
 	public String getProfile_img() {
 		return profile_img;
 	}

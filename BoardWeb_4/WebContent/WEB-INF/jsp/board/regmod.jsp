@@ -30,6 +30,7 @@
 	<div class="container">
 		<form id="frm" action="regmod" method="post">
 			<input type="hidden" name="i_board" value="${data.i_board}">
+			<input type="hidden" name="i_user" value="${data.i_user}">
 			<div> <input type="text" name="title" value="${data.title}" placeholder="제목을 입력해주세요" class="title"></div>
 			<div class="alert"> 음란물, 차별, 비하, 혐오 및 초상권, 저작권 침해 게시물은 민, 형사상의 책임을 질 수 있습니다. </div>
 			<div> <textarea name="ctnt" class="ctnt">${data.ctnt}</textarea></div>

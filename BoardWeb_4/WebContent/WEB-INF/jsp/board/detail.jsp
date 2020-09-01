@@ -109,7 +109,7 @@
             <!-- c:if 는 tl문 -->
             <c:if test="${ loginUser.i_user == data.i_user }">
                 <div>
-                    <a href="/board/regmod?i_board=${data.i_board}"><button>수정</button></a>
+                    <a href="/board/regmod?i_board=${data.i_board}&i_user=${uvo.i_user}"><button>수정</button></a>
                 </div>
                 <form action="/board/del" method="post" id="delFrm">
                     <input type="hidden" name="i_board" value="${data.i_board}">

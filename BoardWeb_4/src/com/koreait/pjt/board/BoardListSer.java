@@ -46,6 +46,7 @@ public class BoardListSer extends HttpServlet {
 		param.setRecord_cnt(recordCnt);
 		// sql 에러 방지
 		param.setSearchText("%" + searchText + "%");
+		param.setI_user(MyUtils.getLoginUser(request).getI_user());
 		
 		int pagingCnt = BoardDAO.selPagingCnt(param);
 		

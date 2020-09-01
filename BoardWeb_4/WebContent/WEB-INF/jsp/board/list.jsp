@@ -168,7 +168,14 @@ table td, th {
 					</td>
 				<td>${item.hits} </td>
 				<td>${item.r_dt} </td>
-				<td>${item.likecnt} </td>
+				<td>${item.likecnt}
+				 <c:if test="${item.yn_like == 0}">
+           	 	<span class="material-icons" onclick="togglelike()">favorite_border</span><span class="likecnt">${data.likecnt}</span>
+        		</c:if>
+        		<c:if test="${item.yn_like == 1}">
+           		 <span class="material-icons" onclick="togglelike()">favorite</span><span class="likecnt">${data.likecnt}</span>
+        		</c:if>
+        		</td>
 			</tr>
 			</c:forEach>
 		</table>

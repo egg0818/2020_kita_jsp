@@ -31,6 +31,8 @@ public class BoardRegmod extends HttpServlet {
 			response.sendRedirect("/login");
 			return;
 		}
+		String strI_user = request.getParameter("i_user");
+		int i_user = Integer.parseInt(strI_user);
 		
 		String strI_board = request.getParameter("i_board");
 		
@@ -39,6 +41,7 @@ public class BoardRegmod extends HttpServlet {
 			
 			BoardVO param = new BoardVO();
 			param.setI_board(i_board);
+			param.setI_user(i_user);
 		
 			BoardVO data = BoardDAO.selBoard(param);
 			request.setAttribute("data", data);
@@ -54,6 +57,9 @@ public class BoardRegmod extends HttpServlet {
 		String title = request.getParameter("title");
 		String ctnt = request.getParameter("ctnt");
 		String i_board = request.getParameter("i_board");
+		
+		String strI_user = request.getParameter("i_user");
+		int i_user = Integer.parseInt(strI_user);
 		
 		HttpSession hs = request.getSession();
 		UserVO loginUser = (UserVO) hs.getAttribute(Const.LOGIN_USER);
@@ -79,8 +85,7 @@ public class BoardRegmod extends HttpServlet {
 		if(i_board != "") {
 			param.setI_board(MyUtils.parseStrToInt(i_board));
 			result = BoardDAO.uptBoard(param);
-			response.sendRedirect("/board/detail?i_board=" + i_board);
-			
+			response.sendRedirect("/board/detail?i_board=" + i_board + "&i_user=" + i_user);
 		} else {
 			result = BoardDAO.insBoard(param);
 			response.sendRedirect("/board/list");

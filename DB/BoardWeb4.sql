@@ -309,3 +309,43 @@ where title like '%하하%';
 select * from t_user;
 
 select NVL(NM, 0) from t_user where user_id = '5';
+
+-- 그룹함수 : cnt avg sum max min 주로 이렇게 5개씀
+select * from t_board4_like order by i_board;
+
+select i_board, count(i_board) from t_board4_like group by i_board order by i_board desc;
+
+select distinct i_board, i_user from t_board4_like;
+
+select A.i_board, A.title, B.cnt
+from t_board4 A
+left join (
+    select i_board, count(i_board) as cnt from t_board4_like group by i_board
+    )B
+ON A.i_board = B.i_board;
+
+select count(*) from t_board4_cmt where i_board = 97;
+
+select * from t_board4;
+select * from t_user;
+select * from t_board4_like;
+
+-- 좋아요 한 페이지만 보이게
+select *
+from t_board4 A
+LEFT JOIN t_board4_like B
+on A.i_user = B.i_user
+LEFT JOIN t_user C
+on A.i_user = C.i_user
+where C.i_user = 38
+order by A.i_board desc
+;
+
+--
+select A.i_board, A.title
+, nvl(B.cnt, 0) as like_cnt
+, nvl(C.cnt, 0) as cmt_cnt
+, DECODE(D.i_board, null, 0, 1) as yn_like
+FROM t_board4 A
+LEFT JOIN (
+
