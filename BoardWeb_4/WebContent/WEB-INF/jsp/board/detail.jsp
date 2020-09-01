@@ -42,6 +42,8 @@
     text-align: left;
     padding-top: 10px;
     padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom : 15px;
 }
 .subject {
     font-size: 20px;
@@ -57,7 +59,7 @@
 }
 .writedate {
     position: relative;
-    left: 500px;
+    left: 400px;
 }
 .cmt-box {
     width: 700px;
@@ -89,6 +91,8 @@
 	height: 30px;
 	border-radius: 50%;
 	overflow: hidden;
+	position : relative;
+	top : 10px; 
 	}
 .pImg {
 	object-fit: cover;
@@ -126,9 +130,7 @@
        	 제목 : ${data.title}
         </div>
         <div class="writer">작성자 : ${data.nm}
-        <span class="writedate">작성일시 : ${data.r_dt} &nbsp;&nbsp;&nbsp;&nbsp; 조회수 : ${data.hits}</span>
-        </div>
-        <div class="containerPImg">
+                <div class="containerPImg">
 			<c:choose>
 				<c:when test="${uvo.profile_img != null}">
 					<img class="pImg" src="/img/user/${uvo.i_user}/${uvo.profile_img}">
@@ -138,6 +140,8 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
+        <span class="writedate">작성일시 : ${data.r_dt} &nbsp;&nbsp;&nbsp;&nbsp; 조회수 : ${data.hits}</span>
+        </div>
         <div class="content">${data.ctnt}</div>
         <!-- <div>좋아요 : ${data.like == 1 ? '❤' : '♡' }</div>  -->
         
@@ -180,8 +184,7 @@
 						</div>
 						${item.nm}
 					</td>
-					<td>${item.nm} </td>
-					<td>${item.r_dt} </td>
+					<td>${item.r_dt}</td>
 					<td> 
 						<c:if test="${ loginUser.i_user == item.i_user }">
 								<button onclick="updateCmt('${item.cmt}', '${item.i_cmt}')">수정</button>
