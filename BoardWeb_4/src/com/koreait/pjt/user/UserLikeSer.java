@@ -25,6 +25,8 @@ public class UserLikeSer extends HttpServlet {
 		int i_board = Integer.parseInt(strI_board);
 		String strLike = request.getParameter("like");
 		int like = Integer.parseInt(strLike);
+		String strI_user = request.getParameter("i_user");
+		int i_user = Integer.parseInt(strI_user);
 		
 		BoardVO param = new BoardVO();
 		param.setI_board(i_board);
@@ -36,7 +38,7 @@ public class UserLikeSer extends HttpServlet {
 			BoardDAO.delLike(param);
 		}
 		
-		response.sendRedirect("/board/detail?i_board=" + i_board);
+		response.sendRedirect("/board/detail?i_board=" + i_board + "&i_user=" + i_user);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

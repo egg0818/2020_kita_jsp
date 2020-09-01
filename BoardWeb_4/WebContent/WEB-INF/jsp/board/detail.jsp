@@ -231,7 +231,7 @@
 		}
 		
 		function togglelike() {
-			location.href = '/UserLikeSer?i_board=${data.i_board}&like=${data.like}';
+			location.href = '/UserLikeSer?i_board=${data.i_board}&like=${data.like}&i_user=${data.i_user}';
 		}
 	</script>
 </body>

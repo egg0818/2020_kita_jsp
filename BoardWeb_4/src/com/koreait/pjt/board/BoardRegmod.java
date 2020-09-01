@@ -61,6 +61,7 @@ public class BoardRegmod extends HttpServlet {
 //		String i_user = request.getParameter("i_user");
 //		int i_user2 = Integer.parseInt(i_user);
 		
+		
 		BoardVO param = new BoardVO();
 		param.setTitle(title);
 		param.setCtnt(ctnt);
@@ -91,7 +92,22 @@ public class BoardRegmod extends HttpServlet {
 //		System.out.println("result : " + result);
 		
 		
+	//스크립트 필터
+
+	}
+	
+	private String scriptFilter(final String ctnt) {
+		String[] filters = {"<script>", "</script>"};
+		String[] filterResults = {"*&lt;script&gt;", "&lt;/script&gt;"};
+		// 스크립트문 꺽쇠가 html로 찍힌다!
 		
+		String result = "";
+		
+		for(int i=0; i<filters.length; i++) {
+			result = result.replace(filters[i], filterResults[i]);
+			//filters[i] 가 나오면 filterResults[i] 대체한다
+		}
+		return result;
 	}
 
 
