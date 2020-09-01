@@ -38,7 +38,7 @@ public class BoardCmtDAO {
 		// 레퍼런스 변수에 final 붙이면 주솟값 변경x
 		final List<BoardCmtVO> list = new ArrayList();
 		
-		String sql = "select A.i_cmt, A.i_board, A.i_user, B.nm, A.cmt, A.r_dt, A.m_dt"
+		String sql = "select A.i_cmt, A.i_board, A.i_user, B.nm, A.cmt, A.r_dt, A.m_dt, B.profile_img"
 				+ " from T_BOARD4_CMT A"
 				+ " inner join t_user B"
 				+ " on A.i_user = B.i_user "
@@ -63,6 +63,7 @@ public class BoardCmtDAO {
 					String cmt = rs.getNString("cmt");
 					String r_dt = rs.getNString("r_dt");
 					String m_dt = rs.getNString("m_dt");
+					String profile_img = rs.getNString("profile_img");
 							
 					BoardCmtVO vo = new BoardCmtVO();
 					vo.setI_board(i_board);
@@ -72,6 +73,7 @@ public class BoardCmtDAO {
 					vo.setM_dt(m_dt);
 					vo.setR_dt(r_dt);
 					vo.setNm(nm);
+					vo.setProfile_img(profile_img);
 					
 					list.add(vo);
 				}

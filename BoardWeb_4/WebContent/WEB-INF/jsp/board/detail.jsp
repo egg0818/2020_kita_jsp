@@ -167,6 +167,19 @@
 				<tr class="cmtRow">
 					<td>${item.i_cmt} </td>
 					<td>${item.cmt} </td>
+					<td>
+						<div class="containerPImg">
+							<c:choose>
+								<c:when test="${item.profile_img != null}">
+									<img class="pImg" src="/img/user/${item.i_user}/${item.profile_img}">
+								</c:when>
+								<c:otherwise>
+									<img class="pImg" src="/img/default_profile.png">
+								</c:otherwise>
+							</c:choose>
+						</div>
+						${item.nm}
+					</td>
 					<td>${item.nm} </td>
 					<td>${item.r_dt} </td>
 					<td> 
