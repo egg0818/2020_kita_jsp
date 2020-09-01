@@ -24,7 +24,6 @@
 <fullyQualifiedTypeName name="com.koreait.pjt.db.BoardCmtDAO"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.db.BoardDAO"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.ViewResolver"/>
-<fullyQualifiedTypeName name="com.koreait.pjt.db.UserDAO"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.vo.UserVO"/>
 <fullyQualifiedTypeName name="com.koreait.pjt.MyUtils"/>
 <fullyQualifiedTypeName name="com.oreilly.servlet.MultipartRequest"/>
@@ -32,4 +31,5 @@
 <fullyQualifiedTypeName name="java.util.Enumeration"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.util.UUID"/>
+<fullyQualifiedTypeName name="com.koreait.pjt.db.UserDAO"/>
 </qualifiedTypeNameHistroy>

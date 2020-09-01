@@ -61,10 +61,13 @@ public class BoardRegmod extends HttpServlet {
 //		String i_user = request.getParameter("i_user");
 //		int i_user2 = Integer.parseInt(i_user);
 		
+		String filterCtnt1 = scriptFilter(ctnt);
+		String filterCtnt2 = swearWordFilter(filterCtnt1);
 		
 		BoardVO param = new BoardVO();
 		param.setTitle(title);
-		param.setCtnt(ctnt);
+//		param.setCtnt(ctnt);
+		param.setCtnt(filterCtnt2);
 		param.setI_user(loginUser.getI_user());
 		
 //		System.out.println(param.getI_user());
@@ -82,6 +85,7 @@ public class BoardRegmod extends HttpServlet {
 			result = BoardDAO.insBoard(param);
 			response.sendRedirect("/board/list");
 		}
+	}
 		
 //		if(result != 1) {
 //		System.out.println("에러 발생");
@@ -91,24 +95,29 @@ public class BoardRegmod extends HttpServlet {
 	
 //		System.out.println("result : " + result);
 		
-		
-	//스크립트 필터
 
-	}
 	
-	private String scriptFilter(final String ctnt) {
-		String[] filters = {"<script>", "</script>"};
-		String[] filterResults = {"*&lt;script&gt;", "&lt;/script&gt;"};
-		// 스크립트문 꺽쇠가 html로 찍힌다!
-		
-		String result = "";
-		
-		for(int i=0; i<filters.length; i++) {
-			result = result.replace(filters[i], filterResults[i]);
-			//filters[i] 가 나오면 filterResults[i] 대체한다
+		//욕 필터
+		private String swearWordFilter(final String ctnt) {
+			String[] filters = {"개새끼", "미친년", "ㄱ ㅐ ㅅ ㅐ ㄲ ㅣ"};
+			String result = ctnt;
+			for(int i=0; i<filters.length; i++) {
+				result = result.replace(filters[i], "***");
+			}
+			return result;
 		}
-		return result;
-	}
+
+		//스크립트 필터
+		private String scriptFilter(final String ctnt) {
+			String[] filters = {"<script>", "</script>"};
+			String[] filterReplaces = {"&lt;script&gt;", "&lt;/script&gt;"};
+
+			String result = ctnt;
+			for(int i=0; i<filters.length; i++) {
+				result = result.replace(filters[i], filterReplaces[i]);
+			}
+			return result;
+		}
 
 
 }

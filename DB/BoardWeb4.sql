@@ -306,8 +306,6 @@ ceil(count(i_board) / 20)
 from t_board4
 where title like '%гого%';
 
-
 select * from t_user;
 
-
-select NVL(NM, 0) from t_user where user_id = '100';
+select NVL(NM, 0) from t_user where user_id = '5';
