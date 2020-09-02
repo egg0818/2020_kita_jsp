@@ -60,6 +60,7 @@ public class BoardRegmod extends HttpServlet {
 		
 		String strI_user = request.getParameter("i_user");
 		int i_user = Integer.parseInt(strI_user);
+		System.out.println(i_user);
 		
 		HttpSession hs = request.getSession();
 		UserVO loginUser = (UserVO) hs.getAttribute(Const.LOGIN_USER);

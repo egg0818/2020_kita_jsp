@@ -32,8 +32,13 @@ public class BoardListSer extends HttpServlet {
 			return;
 		}
 		
+		//서치
 		String searchText = request.getParameter("searchText");
 		searchText = (searchText == null) ? "" : searchText;
+		
+		//서치타입
+		String searchType = request.getParameter("searchType");
+		searchType = (searchType == null) ? "a" : searchType;
 		
 		// 페이징 start
 		int page = MyUtils.getIntParameter(request, "page");
@@ -47,6 +52,7 @@ public class BoardListSer extends HttpServlet {
 		// sql 에러 방지
 		param.setSearchText("%" + searchText + "%");
 		param.setI_user(MyUtils.getLoginUser(request).getI_user());
+		param.setSearchType(searchType);
 		
 		int pagingCnt = BoardDAO.selPagingCnt(param);
 		
@@ -74,7 +80,8 @@ public class BoardListSer extends HttpServlet {
 		
 //		request.setAttribute("name", hs.getAttribute(Const.LOGIN_USER));
 		request.setAttribute("name", "loginUser");
-		
+//		request.setAttribute("searchText", searchText);
+		request.setAttribute("searchType", searchType);
 		hs.setAttribute("recordCnt", recordCnt);
 		hs.setAttribute("pageinList", page);
 		hs.setAttribute("searchText", searchText);

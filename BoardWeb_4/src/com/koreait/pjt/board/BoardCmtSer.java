@@ -36,7 +36,7 @@ public class BoardCmtSer extends HttpServlet {
     	param.setI_user(i_user);
     	
     	int result = BoardCmtDAO.delCmt(param);
-    	response.sendRedirect("/board/detail?i_board=" + i_board);
+    	response.sendRedirect("/board/detail?i_board=" + i_board  + "&i_user=" + i_user);
 		
 	}
 

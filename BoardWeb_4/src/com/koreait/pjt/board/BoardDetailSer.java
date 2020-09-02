@@ -41,6 +41,8 @@ public class BoardDetailSer extends HttpServlet {
 //			return;
 //		}
 		
+		String searchType = request.getParameter("searchType");
+		searchType = (searchType == null) ? "a" : searchType;
 		
 		String strI_board = request.getParameter("i_board");
 		int i_board = Integer.parseInt(strI_board);
@@ -55,7 +57,7 @@ public class BoardDetailSer extends HttpServlet {
 		BoardVO param = new BoardVO();
 		param.setI_board(i_board);
 		param.setI_user(loginUser.getI_user());
-		
+		param.setSearchType(searchType);
 		
 		//단독으로 조회수 올리기 방지! -- [start]
 		ServletContext application = getServletContext(); //어플리케이션 내장객체 얻어오기
@@ -73,7 +75,7 @@ public class BoardDetailSer extends HttpServlet {
 		//프로필 사진 올리기
 		String strI_user = request.getParameter("i_user");
 		int i_user = Integer.parseInt(strI_user);
-		System.out.println("i_user : " + i_user);
+//		System.out.println("i_user : " + i_user);
 		UserVO uvo = UserDAO.selUser(i_user);
 		uvo.setI_user(i_user);
 		request.setAttribute("uvo", uvo);
@@ -83,7 +85,7 @@ public class BoardDetailSer extends HttpServlet {
 		request.setAttribute("list", list);
 		
 	
-		
+		request.setAttribute("searchType", searchType);
 		ViewResolver.foward("board/detail", request, response);
 	}
 	

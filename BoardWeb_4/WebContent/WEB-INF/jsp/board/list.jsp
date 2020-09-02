@@ -127,7 +127,7 @@ table td, th {
 			</form>
 		</div>
 		<span class="button-write">
-		<a href="/board/regmod"><button>글쓰기</button></a>
+		<a href="/board/regmod?i_user=${loginUser.i_user}"><button>글쓰기</button></a>
 		</span>
 		<h1 class="title">게시판</h1>
 		<table>
@@ -137,6 +137,7 @@ table td, th {
 			<th>작성자</th>
 			<th>조회수</th>
 			<th>작성일시</th>
+			<th>좋아요</th>
 			<td><span class="material-icons">favorite</span></td>
 		</tr>
 			<c:forEach items="${list}" var="item">
@@ -168,7 +169,8 @@ table td, th {
 					</td>
 				<td>${item.hits} </td>
 				<td>${item.r_dt} </td>
-				<td>${item.likecnt}
+				<td>${item.likecnt}</td>
+				<td>
 				 <c:if test="${item.yn_like == 0}">
            	 	<span class="material-icons" onclick="togglelike()">favorite_border</span><span class="likecnt">${data.likecnt}</span>
         		</c:if>
@@ -181,6 +183,11 @@ table td, th {
 		</table>
 		<div class="search">
 			<form action="/board/list">
+				<select name="searchType">
+					<option value="a" ${searchType == 'a' ? 'selected' : ''}>제목</option>
+					<option value="b" ${searchType == 'b' ? 'selected' : ''}>내용</option>
+					<option value="c" ${searchType == 'c' ? 'selected' : ''}>제목+내용</option>
+				</select>
 				<input type="search" name="searchText" value="${searchText}">
 				<input type="hidden" name="record_cnt" value="${param.record_cnt}">
 				<input type="submit" value="검색">			
@@ -193,7 +200,7 @@ table td, th {
 						<span class="nowpage"><strong>${item}</strong></span>
 					</c:when>
 					<c:otherwise>
-	      				<span><a href="/board/list?page=${item}&record_cnt=${param.record_cnt}&searchText=${param.searchText}">${item}</a></span>
+	      				<span><a href="/board/list?page=${item}&record_cnt=${param.record_cnt}&searchText=${param.searchText}&searchType=${searchType}"">${item}</a></span>
 	    			</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -202,7 +209,8 @@ table td, th {
 	<script>
 	function moveToDetail(i_board, i_user) {
 		//console.log('moveToDetail - i_board : ' + i_board)
-		location.href = 'detail?i_board=' + i_board + '&i_user=' + i_user;
+		//location.href = 'detail?i_board=' + i_board + '&i_user=' + i_user + '&searchText=${param.searchText}&searchType=${searchType}';
+		location.href = '/board/detail?page=${page}&record_cnt=${param.record_cnt}&searchType=${searchType}&searchText=${searchText}&i_board=' + i_board + '&i_user=' + i_user;
 	}
 	function changeRecordCnt() {
 		selFrm.submit();

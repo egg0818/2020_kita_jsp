@@ -342,10 +342,29 @@ order by A.i_board desc
 ;
 
 --
-select A.i_board, A.title
-, nvl(B.cnt, 0) as like_cnt
-, nvl(C.cnt, 0) as cmt_cnt
-, DECODE(D.i_board, null, 0, 1) as yn_like
-FROM t_board4 A
-LEFT JOIN (
+select i_board from t_board4_like where i_user = 27;
+
+
+-- sellist sql¹® ´ëÆø ¼öÁ¤
+select A.* from (
+select rownum as rnum, A.* from (
+select A.i_board, A.title, A.hits, B.i_user, B.nm, A.r_dt, B.profile_img, 
+nvl(c.cnt, 0) as c_like, nvl(d.cmt_cnt,0) as c_cmt, decode(e.i_board, null,0,1) as yn_like
+from t_board4 A
+left join t_user B
+on A.i_user = B.i_user
+left join
+(select i_board,count(i_board) as cnt from t_board4_like group by i_board ) C
+on a.i_board=c.i_board
+left join
+(select i_board, count(i_board) as cmt_cnt from t_board4_cmt group by i_board) D
+on a.i_board = d.i_board
+left join
+(select i_board from t_board4_like where i_user = 27 ) E
+on a.i_board = e.i_board
+where a.title like 'asd'
+order by A.i_board desc
+) A where rownum <= 20 
+) A where a.rnum > 10
+;
 

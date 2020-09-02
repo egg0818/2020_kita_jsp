@@ -104,7 +104,7 @@
 <div class="container">
         <div>
         	<!-- BoardlistSer에서 가져온 세션 값을 활용 -->
-            <a href="/board/list?page=${pageinList}&record_cnt=${recordCnt}&searchText=${searchText}"> 리스트 </a>
+            <a href="/board/list?page=${pageinList}&record_cnt=${recordCnt}&searchText=${searchText}&searchType=${searchType}"> 리스트 </a>
             <!-- loginUser는 세션에 들어가있고, 로그인할때 값을 넣어줌 -->
             <!-- c:if 는 tl문 -->
             <c:if test="${ loginUser.i_user == data.i_user }">

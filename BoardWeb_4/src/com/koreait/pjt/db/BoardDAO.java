@@ -66,20 +66,36 @@ public class BoardDAO {
 		             + " left join "
 		             + " (select i_board from t_board4_like where i_user = ? ) E "
 		             + " on a.i_board = e.i_board "
-		             + " where a.title like ? "
-		           + " order by A.i_board desc) A where rownum<=? ) A where a.rnum>?";
+		             + " where ";
+					switch(vo.getSearchType()) {
+					case "a":
+						sql += " A.title like ? ";
+						break;
+					case "b":
+						sql += " A.ctnt like ? ";
+						break;
+					case "c":
+						sql += " (A.ctnt like ? or A.title like ?) ";
+						break;
+					}
+		         sql += " order by i_board desc"
+		         		+ " 	) A where rownum <= ? "
+		         		+ " ) A where a.rnum > ?";
 		
 		int result = JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
-				int eIdx = vo.geteIdx();
-				int sIdx = vo.getSldx();
-				ps.setInt(1, vo.getI_user());
-				ps.setNString(2, vo.getSearchText());
-				ps.setInt(3, eIdx);
-				ps.setInt(4, sIdx);
+				int seq = 1;
+				ps.setInt(seq, vo.getI_user()); //로그인한 사람의 i_user
+				ps.setNString(++seq, vo.getSearchText());
 				
+				if(vo.getSearchType().equals("c")) {
+					ps.setNString(++seq, vo.getSearchText());
+				}
+				
+				ps.setInt(++seq, vo.geteIdx());
+				ps.setInt(++seq, vo.getSldx());
 			}
 				
 			@Override
@@ -271,8 +287,19 @@ public class BoardDAO {
 	
 	//페이징 숫자 가져오기
 	public static int selPagingCnt(final BoardVO param) {
-		String sql = " SELECT CEIL(COUNT(i_board) / ?) FROM t_board4 "
-				+ " WHERE title like ? ";
+		String sql = " SELECT CEIL(COUNT(i_board) / ?) FROM t_board4 WHERE ";
+		
+		switch(param.getSearchType()) {
+		case "a":					
+			sql += " title like ? ";
+			break;
+		case "b":
+			sql += " ctnt like ? ";
+			break;
+		case "c":
+			sql += " (ctnt like ? or title like ?) ";
+			break;
+		}	
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 
@@ -280,6 +307,10 @@ public class BoardDAO {
 			public void prepared(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, param.getRecord_cnt());
 				ps.setNString(2, param.getSearchText());
+				ps.setNString(2, param.getSearchText());				
+				if(param.getSearchType().equals("c")) {
+					ps.setNString(3, param.getSearchText());	
+				}
 			}
 
 			@Override
