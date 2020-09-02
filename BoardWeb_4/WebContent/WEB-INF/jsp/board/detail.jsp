@@ -98,6 +98,9 @@
 	object-fit: cover;
 	max-width:100%;
 	}
+.highlight {
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -126,7 +129,7 @@
         <c:if test="${data.like == 1}">
             <span class="material-icons" onclick="togglelike()">favorite</span><span class="likecnt">${data.likecnt}</span>
         </c:if>
-        <div class="subject">
+        <div class="subject" id="elTitle">
        	 ${data.title}
         </div>
         <div class="writer">작성자 : ${data.nm}
@@ -142,7 +145,7 @@
 		</div>
         <span class="writedate">작성일시 : ${data.r_dt} &nbsp;&nbsp;&nbsp;&nbsp; 조회수 : ${data.hits}</span>
         </div>
-        <div class="content">${data.ctnt}</div>
+        <div class="content" id="elCtnt">${data.ctnt}</div>
         <!-- <div>좋아요 : ${data.like == 1 ? '❤' : '♡' }</div>  -->
         
         <div>
@@ -233,27 +236,36 @@
 		function togglelike() {
 			location.href = '/UserLikeSer?i_board=${data.i_board}&like=${data.like}&i_user=${data.i_user}';
 		}
-		/*
-		function doHighlight() {
-			let searchText = '${searchText}';
-			let searchType = '${searchType}';
-			
-			switch(searchType) {
-			case 'a':
-				let txt = elTitle.innerText;
-				console.log('txt : ' + txt);
-				break;
-			case 'b':
-				break;
-			case 'c':
-				break;
-			case 'd':
-				break;
-			}
-		}
 		
-		doHighlight();
-		*/
+        function doHighlight() {
+        	var searchText = '${searchText}'
+        	var searchType = '${data.searchType}'
+        	
+        	switch(searchType) {
+        	case 'a': //제목
+        		var txt = elTitle.innerText
+        		///${searchText}/gi : 정규식 사용
+        		txt = txt.replace(/${searchText}/gi, '<span class="highlight">' + searchText + '</span>')
+        		elTitle.innerHTML = txt
+        		break
+        	case 'b': //내용
+        		var txt = elCtnt.innerText
+        		txt = txt.replace(/${searchText}/gi, '<span class="highlight">' + searchText + '</span>')
+        		elCtnt.innerHTML = txt
+        		break
+        	case 'c': //제목+내용
+        		var txt = elTitle.innerText
+        		txt = txt.replace(/${searchText}/gi, '<span class="highlight">' + searchText + '</span>')
+        		elTitle.innerHTML = txt
+        		
+        		txt = elCtnt.innerText
+        		txt = txt.replace(/${searchText}/gi, '<span class="highlight">' + searchText + '</span>')
+        		elCtnt.innerHTML = txt
+        		break
+        	}
+        }
+        
+        doHighlight()
 	</script>
 </body>
 </html>
