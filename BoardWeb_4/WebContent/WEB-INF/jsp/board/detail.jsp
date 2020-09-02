@@ -244,22 +244,22 @@
         	switch(searchType) {
         	case 'a': //제목
         		var txt = elTitle.innerText
-        		///${searchText}/gi : 정규식 사용
-        		txt = txt.replace(/${searchText}/gi, '<span class="highlight">' + searchText + '</span>')
+        		// /*/gi : 정규식 사용
+        		txt = txt.replace(new RegExp('${searchText}'), '<span class="highlight">' + searchText + '</span>')
         		elTitle.innerHTML = txt
         		break
         	case 'b': //내용
         		var txt = elCtnt.innerText
-        		txt = txt.replace(/${searchText}/gi, '<span class="highlight">' + searchText + '</span>')
+        		txt = txt.replace(new RegExp('${searchText}'), '<span class="highlight">' + searchText + '</span>')
         		elCtnt.innerHTML = txt
         		break
         	case 'c': //제목+내용
         		var txt = elTitle.innerText
-        		txt = txt.replace(/${searchText}/gi, '<span class="highlight">' + searchText + '</span>')
+        		txt = txt.replace(new RegExp('${searchText}'), '<span class="highlight">' + searchText + '</span>')
         		elTitle.innerHTML = txt
         		
         		txt = elCtnt.innerText
-        		txt = txt.replace(/${searchText}/gi, '<span class="highlight">' + searchText + '</span>')
+        		txt = txt.replace(new RegExp('${searchText}'), '<span class="highlight">' + searchText + '</span>')
         		elCtnt.innerHTML = txt
         		break
         	}
