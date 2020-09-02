@@ -104,7 +104,7 @@
 <div class="container">
         <div>
         	<!-- BoardlistSer에서 가져온 세션 값을 활용 -->
-            <a href="/board/list?page=${pageinList}&record_cnt=${recordCnt}&searchText=${searchText}&searchType=${searchType}"> 리스트 </a>
+            <a href="/board/list?page=${pageinList}&record_cnt=${recordCnt}&searchText=${searchText}&searchType=${data.searchType}"> 리스트 </a>
             <!-- loginUser는 세션에 들어가있고, 로그인할때 값을 넣어줌 -->
             <!-- c:if 는 tl문 -->
             <c:if test="${ loginUser.i_user == data.i_user }">
@@ -127,7 +127,7 @@
             <span class="material-icons" onclick="togglelike()">favorite</span><span class="likecnt">${data.likecnt}</span>
         </c:if>
         <div class="subject">
-       	 제목 : ${data.title}
+       	 ${data.title}
         </div>
         <div class="writer">작성자 : ${data.nm}
                 <div class="containerPImg">
@@ -233,6 +233,27 @@
 		function togglelike() {
 			location.href = '/UserLikeSer?i_board=${data.i_board}&like=${data.like}&i_user=${data.i_user}';
 		}
+		/*
+		function doHighlight() {
+			let searchText = '${searchText}';
+			let searchType = '${searchType}';
+			
+			switch(searchType) {
+			case 'a':
+				let txt = elTitle.innerText;
+				console.log('txt : ' + txt);
+				break;
+			case 'b':
+				break;
+			case 'c':
+				break;
+			case 'd':
+				break;
+			}
+		}
+		
+		doHighlight();
+		*/
 	</script>
 </body>
 </html>
