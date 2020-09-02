@@ -368,3 +368,6 @@ order by A.i_board desc
 ) A where a.rnum > 10
 ;
 
+select * from t_board4 where title = '%asd%';
+
+select * from t_board4 order by i_board desc;

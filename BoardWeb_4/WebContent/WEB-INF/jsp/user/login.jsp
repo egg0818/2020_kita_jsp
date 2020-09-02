@@ -24,7 +24,6 @@ form div {
 h1 {
     color : white;
 }
-
 a {
     color : white;
     text-decoration-line: none;
@@ -39,8 +38,8 @@ a {
         <div class="err">${msg}</div>
         <h1>LOGIN</h1>
         <form action="/login" method="post">
-            <div><input type="text" name="user_id" placeholder="아이디" value="${user_id}"></div>
-            <div><input type="password" name="user_pw" placeholder="비밀번호"></div>		
+            <div><input type="text" name="user_id" placeholder="아이디" value="taddy"></div>
+            <div><input type="password" name="user_pw" placeholder="비밀번호" value="11111"></div>		
             <div><input type="submit" value="로그인"></div>
             <span><a href="/join">회원가입</a></span>		
         </form>

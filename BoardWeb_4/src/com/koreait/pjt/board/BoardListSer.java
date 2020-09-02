@@ -71,6 +71,17 @@ public class BoardListSer extends HttpServlet {
 		//페이징 end
 		
 		List<BoardVO> list = BoardDAO.selBoardlist(param);
+		
+		// 제목 하이라이트 처리
+		if(!"".equals(searchText) && ("a".equals(searchType) || "c".equals(searchType))) {
+			for(BoardVO item : list) {
+				String title = item.getTitle();
+				title = title.replace(searchText
+						, "<span class=\"highlight\">" + searchText +"</span>");
+				item.setTitle(title);
+			}
+		}
+		
 		request.setAttribute("list", list);
 		
 		

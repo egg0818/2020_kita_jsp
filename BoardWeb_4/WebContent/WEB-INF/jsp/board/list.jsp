@@ -94,12 +94,14 @@ table td, th {
 	   border-radius: 50%;
 	   overflow: hidden;
 	}
-
 .pImg {
 	
 		object-fit: cover;
 		max-width:100%;
 	}
+.highlight {
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -129,7 +131,7 @@ table td, th {
 		<span class="button-write">
 		<a href="/board/regmod?i_user=${loginUser.i_user}"><button>글쓰기</button></a>
 		</span>
-		<h1 class="title">게시판</h1>
+		<a href="/board/list"><h1 class="title">게시판</h1></a>
 		<table>
 		<tr>
 			<th>번호</th>
