@@ -36,5 +36,13 @@
 			<a href="/changePw"> <button>비밀번호 변경</button></a>
 		</div>
 	</div>
+	<script>
+		var proc = '${param.proc}'
+		switch(proc) {
+			case '1':
+				alert('비밀번호를 변경하였습니다.')
+				break
+		}
+	</script>
 </body>
 </html>

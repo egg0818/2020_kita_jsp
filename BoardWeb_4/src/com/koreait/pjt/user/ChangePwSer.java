@@ -34,7 +34,6 @@ public class ChangePwSer extends HttpServlet {
 		
 		switch(type) {
 		case "1": // 현재 비밀번호 확인
-			
 			UserVO param = new UserVO();
 			param.setUser_id(loginUser.getUser_id());
 			param.setUser_pw(encryptPw);
@@ -52,7 +51,6 @@ public class ChangePwSer extends HttpServlet {
 			break;
 			
 		case "2" :
-			System.out.println("2222222");
 			UserVO param2 = new UserVO();
 			param2.setUser_pw(encryptPw);
 			param2.setI_user(loginUser.getI_user());
@@ -60,7 +58,7 @@ public class ChangePwSer extends HttpServlet {
 			int result2 = UserDAO.updUser(param2);
 			
 			if(result2 == 1) {
-				ViewResolver.fowardLoginChk("user/profile", request, response);
+				response.sendRedirect("/profile?proc=1");
 			}
 		}
 		

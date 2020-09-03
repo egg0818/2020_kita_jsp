@@ -40,9 +40,13 @@
 </c:if>
 <script>
 	function chkChangePw() {
-		if(frm.pw.value != frm.pwre.value) {
-		alert('비밀번호를 확인해 주세요');
-		return false;
+		if(frm.pw.value.length == 0) {
+			alert('비밀번호를 입력해주세요')
+			return false;
+		}
+		else if(frm.pw.value != frm.pwre.value) {
+			alert('비밀번호를 확인해주세요');
+			return false;
 		} else {
 			return true;
 		}

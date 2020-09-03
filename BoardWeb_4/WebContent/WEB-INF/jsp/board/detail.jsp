@@ -124,10 +124,24 @@
         <br><br>
         <!-- <span class="board_idx">${data.i_board}</span> -->
          <c:if test="${data.like == 0}">
-            <span class="material-icons" onclick="togglelike()">favorite_border</span><span class="likecnt">${data.likecnt}</span>
+            <span class="material-icons" onclick="togglelike()">favorite_border</span>
+         	<c:choose>
+         		<c:when test="${data.likecnt == 0}">
+           		 </c:when>
+           		 <c:otherwise>
+           		 	<span class="likecnt">${data.likecnt}</span>
+           		 </c:otherwise>       
+         	</c:choose>
         </c:if>
         <c:if test="${data.like == 1}">
-            <span class="material-icons" onclick="togglelike()">favorite</span><span class="likecnt">${data.likecnt}</span>
+            <span class="material-icons" onclick="togglelike()">favorite</span>
+            <c:choose>
+         		<c:when test="${data.likecnt == 0}">
+           		 </c:when>
+           		 <c:otherwise>
+           		 	<span class="likecnt">${data.likecnt}</span>
+           		 </c:otherwise>       
+         	</c:choose>
         </c:if>
         <div class="subject" id="elTitle">
        	 ${data.title}
