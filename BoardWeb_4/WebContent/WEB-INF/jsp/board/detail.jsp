@@ -9,6 +9,7 @@
 <title>상세 페이지</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
 <style>
 .material-icons {
     position: relative;
@@ -101,6 +102,26 @@
 .highlight {
 	color: red;
 }
+#id_like {
+	cursor:pointer;
+	position: relative;
+}
+#likeListContainer {
+	width: 100px;
+	height: 200px;
+	position: absolute;
+	overflow-y: auto;
+	border : 1px solid #bdc3c7;
+	background-color : white;
+	/* display: none; */
+	opacity: 0;
+	transition-duration : 500ms;
+}
+#id_like:hover #likeListContainer {
+	opacity: 1;
+	/* display: unset; */
+}
+
 </style>
 </head>
 <body>
@@ -129,17 +150,23 @@
          		<c:when test="${data.likecnt == 0}">
            		 </c:when>
            		 <c:otherwise>
-           		 	<span class="likecnt">${data.likecnt}</span>
+           		 	<div class="likecnt" id="id_like">${data.likecnt}
+           		 		<div id="likeListContainer">
+    					</div>
+    				</div>
            		 </c:otherwise>       
          	</c:choose>
         </c:if>
         <c:if test="${data.like == 1}">
             <span class="material-icons" onclick="togglelike()">favorite</span>
-            <c:choose>
+             <c:choose>
          		<c:when test="${data.likecnt == 0}">
            		 </c:when>
            		 <c:otherwise>
-           		 	<span class="likecnt">${data.likecnt}</span>
+           		 	<div class="likecnt" id="id_like">
+           		 		<span>${data.likecnt}</span>
+           		 		<div id="likeListContainer"></div>
+           		 	</div>
            		 </c:otherwise>       
          	</c:choose>
         </c:if>
