@@ -32,6 +32,9 @@
 		<div>이름 : ${data.nm}</div>
 		<div>이메일 : ${data.email}</div>
 		<div>가입일시 : ${data.r_dt}</div>
+		<div>
+			<a href="/changePw"> <button>비밀번호 변경</button></a>
+		</div>
 	</div>
 </body>
 </html>

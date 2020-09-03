@@ -371,3 +371,5 @@ order by A.i_board desc
 select * from t_board4 where title = '%asd%';
 
 select * from t_board4 order by i_board desc;
+
+select * from t_board4;
