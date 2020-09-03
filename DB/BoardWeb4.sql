@@ -373,3 +373,11 @@ select * from t_board4 where title = '%asd%';
 select * from t_board4 order by i_board desc;
 
 select * from t_board4;
+------------------------------------------
+
+select
+B.i_user, B.nm, B.profile_img
+from t_board4_like A
+inner join t_user B
+on A.i_user = B.i_user
+where A.i_board = 119;

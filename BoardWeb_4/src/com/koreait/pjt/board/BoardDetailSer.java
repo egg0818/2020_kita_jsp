@@ -82,6 +82,10 @@ public class BoardDetailSer extends HttpServlet {
 		// 댓글 리스트
 		List<BoardCmtVO> list = BoardCmtDAO.selBoardCmtlist(param);
 		request.setAttribute("list", list);
+		
+		//좋아요 리스트
+		List<BoardVO> likeList = BoardDAO.selBoardLikeList(i_board);
+		request.setAttribute("likeList", likeList);
 
 		ViewResolver.foward("board/detail", request, response);
 	}

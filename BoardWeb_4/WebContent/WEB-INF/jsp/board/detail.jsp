@@ -121,6 +121,9 @@
 	opacity: 1;
 	/* display: unset; */
 }
+#likeNm {
+	color:black;
+}
 
 </style>
 </head>
@@ -152,6 +155,19 @@
            		 <c:otherwise>
            		 	<div class="likecnt" id="id_like">${data.likecnt}
            		 		<div id="likeListContainer">
+           		 			<c:forEach items="${likeList}" var="item">
+           		 				<div class="containerPImg">
+									<c:choose>
+										<c:when test="${item.profile_img != null}">
+											<img class="pImg" src="/img/user/${item.i_user}/${item.profile_img}">
+										</c:when>
+										<c:otherwise>
+											<img class="pImg" src="/img/default_profile.png">
+										</c:otherwise>
+									</c:choose>
+								</div>
+           		 				<span id="likeNm">${item.nm}</span>
+           		 			</c:forEach>
     					</div>
     				</div>
            		 </c:otherwise>       
@@ -165,7 +181,21 @@
            		 <c:otherwise>
            		 	<div class="likecnt" id="id_like">
            		 		<span>${data.likecnt}</span>
-           		 		<div id="likeListContainer"></div>
+           		 		<div id="likeListContainer">
+           		 			<c:forEach items="${likeList}" var="item">
+           		 				<div class="containerPImg">
+									<c:choose>
+										<c:when test="${item.profile_img != null}">
+											<img class="pImg" src="/img/user/${item.i_user}/${item.profile_img}">
+										</c:when>
+										<c:otherwise>
+											<img class="pImg" src="/img/default_profile.png">
+										</c:otherwise>
+									</c:choose>
+								</div>
+           		 				<span id="likeNm">${item.nm}</span>
+           		 			</c:forEach>
+           		 		</div>
            		 	</div>
            		 </c:otherwise>       
          	</c:choose>

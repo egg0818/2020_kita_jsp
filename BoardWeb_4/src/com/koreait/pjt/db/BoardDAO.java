@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import com.koreait.pjt.db.Dbcon;
 import com.koreait.pjt.vo.BoardVO;
 
+import oracle.net.aso.p;
+
 public class BoardDAO {
 	
 	public static int insBoard(BoardVO param) {
@@ -181,6 +183,41 @@ public class BoardDAO {
 				} 		
 		});
 		return param;
+	}
+	
+	public static List<BoardVO> selBoardLikeList(int i_board) {
+		List<BoardVO> list = new ArrayList();
+		
+		String sql = " select "
+				+ " B.i_user, B.nm, B.profile_img "
+				+ " from t_board4_like A "
+				+ " inner join t_user B "
+				+ " on A.i_user = B.i_user "
+				+ " where A.i_board = ? "
+				+ " order by A.r_dt ASC ";
+		
+		
+		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+
+			@Override
+			public void prepared(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, i_board);
+				
+			}
+
+			@Override
+			public int excuteQuery(ResultSet rs) throws SQLException {
+				while(rs.next()) {
+					BoardVO vo = new BoardVO();
+					vo.setI_user(rs.getInt("i_user"));
+					vo.setNm(rs.getNString("nm"));
+					vo.setProfile_img(rs.getNString("profile_img"));
+					list.add(vo);
+				}
+				return 0;
+			}});
+		
+		return list;
 	}
 	
 	public static int uptBoard(BoardVO param) {

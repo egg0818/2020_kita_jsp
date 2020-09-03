@@ -3220,3 +3220,12 @@ java.lang.NullPointerException
 
 !ENTRY org.eclipse.jdt.debug 2 0 2020-09-03 14:38:28.405
 !MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
+
+!ENTRY org.eclipse.wst.html.ui 1 1 2020-09-03 15:41:37.029
+!MESSAGE No line style provider for org.eclipse.wst.html.SCRIPT
+
+!ENTRY org.eclipse.wst.html.ui 1 1 2020-09-03 15:41:37.030
+!MESSAGE No line style provider for org.eclipse.wst.html.SCRIPT
+
+!ENTRY org.eclipse.wst.html.ui 1 1 2020-09-03 15:41:37.030
+!MESSAGE No line style provider for org.eclipse.wst.html.SCRIPT
