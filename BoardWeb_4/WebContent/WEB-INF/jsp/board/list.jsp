@@ -208,8 +208,10 @@ table td, th {
 			</c:forEach>
 		</div>
 	</div>
+	
 	<div id="likeListContainer">
 	</div>
+	
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
 	
@@ -228,9 +230,10 @@ table td, th {
 		if(cnt == 0) { return }
 		
 		//get 방식으로 날림
+		//axios 라이브러리 사용
 		axios.get('/board/like', {
 			params: {
-				'i_board':i_board //key랑 value랑 같을때는 이렇게 써야함
+				'i_board':i_board //key랑 value랑 같을때는 i_board만 써도됨
 			}
 		}).then(function(res) {
 			if(res.data.length > 0) {
