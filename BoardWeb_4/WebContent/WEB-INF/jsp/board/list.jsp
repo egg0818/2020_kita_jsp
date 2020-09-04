@@ -143,9 +143,9 @@ table td, th {
 			<td><span class="material-icons">favorite</span></td>
 		</tr>
 			<c:forEach items="${list}" var="item">
-			<tr class="itemRow" onclick="moveToDetail(${item.i_board}, ${item.i_user})">
+			<tr class="itemRow">
 				<td>${item.i_board} </td>
-				<td>${item.title}
+				<td onclick="moveToDetail(${item.i_board}, ${item.i_user})">${item.title}
 				<span id="cmtcnt">
 				<c:choose>
 					<c:when test="${item.cmtcnt eq 0}">
@@ -171,7 +171,7 @@ table td, th {
 					</td>
 				<td>${item.hits} </td>
 				<td>${item.r_dt} </td>
-				<td>${item.likecnt}</td>
+				<td><span onclick="getLikeList(${item.i_board}, ${item.likecnt})">${item.likecnt}</span></td>
 				<td>
 				 <c:if test="${item.yn_like == 0}">
            	 	<span class="material-icons" onclick="togglelike()">favorite_border</span><span class="likecnt">${data.likecnt}</span>
@@ -208,16 +208,27 @@ table td, th {
 			</c:forEach>
 		</div>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
 	function moveToDetail(i_board, i_user) {
 		//console.log('moveToDetail - i_board : ' + i_board)
 		//location.href = 'detail?i_board=' + i_board + '&i_user=' + i_user + '&searchText=${param.searchText}&searchType=${searchType}';
 		location.href = '/board/detail?page=${page}&record_cnt=${param.record_cnt}&searchType=${searchType}&searchText=${searchText}&i_board=' + i_board + '&i_user=' + i_user;
 	}
+	
 	function changeRecordCnt() {
 		selFrm.submit();
-		
 	}
+	
+	function getLikeList(i_board, cnt) {
+		if(cnt == 0) {return}
+		
+		//get 방식으로 날림
+		axios.get('/board/like').then(function(res) {
+			console.log(res)
+		})
+	}
+	
 	</script>
 </body>
 </html>
