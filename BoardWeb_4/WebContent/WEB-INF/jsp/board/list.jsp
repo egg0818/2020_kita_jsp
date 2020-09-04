@@ -208,8 +208,11 @@ table td, th {
 			</c:forEach>
 		</div>
 	</div>
+	<div id="likeListContainer">
+	</div>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
+	
 	function moveToDetail(i_board, i_user) {
 		//console.log('moveToDetail - i_board : ' + i_board)
 		//location.href = 'detail?i_board=' + i_board + '&i_user=' + i_user + '&searchText=${param.searchText}&searchType=${searchType}';
@@ -221,13 +224,40 @@ table td, th {
 	}
 	
 	function getLikeList(i_board, cnt) {
-		if(cnt == 0) {return}
+		likeListContainer.innerHTML = ""
+		if(cnt == 0) { return }
 		
 		//get 방식으로 날림
-		axios.get('/board/like').then(function(res) {
-			console.log(res)
+		axios.get('/board/like', {
+			params: {
+				'i_board':i_board //key랑 value랑 같을때는 이렇게 써야함
+			}
+		}).then(function(res) {
+			if(res.data.length > 0) {
+				for(let i=0; i<res.data.length; i++) {
+					const result = makeLikeUser(res.data[i])
+					console.log(result)
+					likeListContainer.innerHTML += result
+				}
+			}
 		})
 	}
+	
+	function makeLikeUser(one){
+        const img = one.profile_img == null ? '<img class="pImg" src="/img/default_profile.png">' : 
+           `<img class="pImg" src="/img/user/\${one.i_user}/\${one.profile_img}">`
+        
+        const ele = `<div class="likeListContainer">
+           <div class="containerPImg">
+                 \${img}
+           </div>
+           <span>
+           		\${one.nm}
+           	</span>
+        </div>`
+        
+        return ele
+     }
 	
 	</script>
 </body>

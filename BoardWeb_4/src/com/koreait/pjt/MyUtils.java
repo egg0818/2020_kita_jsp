@@ -12,7 +12,6 @@ import com.koreait.pjt.db.Const;
 import com.koreait.pjt.vo.UserVO;
 
 public class MyUtils {
-	
 	public static int getIntParameter(HttpServletRequest request, String keyNm) {
 		return parseStrToInt(request.getParameter(keyNm));
 	}

@@ -84,7 +84,6 @@ public class BoardListSer extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		
-		
 //		LikeList 선언		
 //		List<BoardVO> likeList = BoardDAO.selLikecntlist();
 //		request.setAttribute("likeList", likeList);
