@@ -21,8 +21,6 @@ public class Container extends HttpServlet {
 		proc(request, response);
 	}
        
-	
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		proc(request, response);
 	}
@@ -30,7 +28,8 @@ public class Container extends HttpServlet {
 	private void proc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String temp = mapper.nav(request);
 		
-		if(temp.indexOf("/") >= 0 && "redirect:".equals(temp.substring(temp.indexOf("/")))) {	
+		// substring 에 0 넣어야함!!
+		if(temp.indexOf("/") >= 0 && "redirect:".equals(temp.substring(0, temp.indexOf("/")))) {	
 			response.sendRedirect(temp.substring(temp.indexOf("/")));
 			return;
 		
@@ -49,17 +48,3 @@ public class Container extends HttpServlet {
 	}
 
 }
-
-//protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	System.out.println("uri : " + request.getRequestURI());
-//	String[] uriArr = request.getRequestURI().split("/"); //split 자르기 , 결과값이 /res/js/test.js
-//	
-//	for(int i=0; i<uriArr.length; i++) {
-//		System.out.println("uriArr[" + i + "] : " + uriArr[i]); // 0-> 빈칸, 1-> res , 2-> js, 3-> test.js
-//	}
-//	
-//	//response.sendRedirect(request.getRequestURI());
-//	if(uriArr.length > 1 ) {
-//		request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
-//	}
-//}

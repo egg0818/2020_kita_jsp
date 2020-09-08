@@ -2,6 +2,8 @@ package com.koreait.matzip.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class DbManager {
 	
@@ -16,6 +18,16 @@ public class DbManager {
 		System.out.println("DB연결 완료 !");
 				
 		return con;
+	}
+	
+	public static void close(Connection con, PreparedStatement ps, ResultSet rs) {
+		if(rs != null) { try{ rs.close(); } catch(Exception e) {} }
+		if(ps != null) { try{ ps.close(); } catch(Exception e) {} }
+		if(con != null) { try{ con.close(); } catch(Exception e) {} }
+	}
+	
+	public static void close(Connection con, PreparedStatement ps) {
+		close(con, ps, null);
 	}
 
 }
