@@ -8,8 +8,7 @@ import java.util.List;
 
 public class JdbcTemplate {	
 	//select용
-	public static int executeQuery(String sql, JdbcSelectInterface jdbc) {
-		int result = 0;
+	public static void executeQuery(String sql, JdbcSelectInterface jdbc) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;		
@@ -19,13 +18,12 @@ public class JdbcTemplate {
 			jdbc.prepared(ps);
 			
 			rs = ps.executeQuery();
-			result = jdbc.excuteQuery(rs);
+			jdbc.excuteQuery(rs);
 		} catch (Exception e) {		
 			e.printStackTrace();
 		} finally {
 			DbManager.close(con, ps, rs);
 		}
-		return result;
 	}
 	
 	//insert, update, delete에 쓸 친구

@@ -14,7 +14,7 @@ public class HandlerMapper {
 	
 	public String nav(HttpServletRequest request) {
 		String[] uriArr = request.getRequestURI().split("/"); //request.getRequestURI() 결과값 String 
-		
+		// 공백/user/login
 		if(uriArr.length < 3) {
 			return "405"; //Error
 		}
@@ -24,6 +24,8 @@ public class HandlerMapper {
 			switch(uriArr[2]) {
 			case "login":
 				return userCon.login(request);	
+			case "loginProc":
+				return userCon.loginProc(request);
 			case "join":
 				return userCon.join(request);
 			case "joinProc":

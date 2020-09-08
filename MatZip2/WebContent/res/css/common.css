@@ -6,7 +6,6 @@
     font-style: normal;
 }
     
-
 html, body {
 	padding: 0;
 	margin: 0;
@@ -36,9 +35,14 @@ html, body {
 	font-family: '777Newyorkers';
 	
 }
+
 a {
 	text-decoration: none;
 	font-size: 20px;
 	color: #2dcea6;
 	font-weight: bold;
+}
+
+.error {
+	color : red;
 }

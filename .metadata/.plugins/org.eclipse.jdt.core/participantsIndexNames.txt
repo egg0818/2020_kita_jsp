@@ -11,6 +11,8 @@ C:\spring\workspace_web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\35
 \BoardWeb_4\src
 C:\spring\workspace_web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\938368083.index
 \BoardWeb_2\src
+C:\spring\workspace_web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3129181705.index
+\MatZip2\src
 C:\spring\workspace_web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2158353247.index
 \MatZip\src
 C:\spring\workspace_web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1543027999.index

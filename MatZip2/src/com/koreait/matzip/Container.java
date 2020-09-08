@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/")
+// 톰캣이 Container 만들어준다
 public class Container extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -26,13 +27,13 @@ public class Container extends HttpServlet {
 	}
 	
 	private void proc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String temp = mapper.nav(request);
+		String temp = mapper.nav(request); //보통 템플릿 파일명
 		
 		// substring 에 0 넣어야함!!
+		// 프록시구분
 		if(temp.indexOf("/") >= 0 && "redirect:".equals(temp.substring(0, temp.indexOf("/")))) {	
 			response.sendRedirect(temp.substring(temp.indexOf("/")));
 			return;
-		
 		}
 		
 		switch(temp) {

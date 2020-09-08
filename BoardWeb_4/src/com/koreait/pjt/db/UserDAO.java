@@ -150,6 +150,11 @@ public class UserDAO {
 	}
 	
 
+	public UserVO selUser(UserVO param) {
+		UserVO result = null;
+		
+		return result;
+	}
 	
 	
 }
