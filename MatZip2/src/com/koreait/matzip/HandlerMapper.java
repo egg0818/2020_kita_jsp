@@ -19,6 +19,10 @@ public class HandlerMapper {
 			return "405"; //Error
 		}
 		
+		if("ajax".equals(uriArr[1])) {
+			return "ajax";
+		}
+		
 		switch(uriArr[1]) {
 		case ViewRef.URI_USER: // "user"
 			switch(uriArr[2]) {
@@ -30,6 +34,8 @@ public class HandlerMapper {
 				return userCon.join(request);
 			case "joinProc":
 				return userCon.joinProc(request);
+			case "ajaxIdChk":
+				return userCon.ajaxIdChk(request);
 			}
 		}
 		

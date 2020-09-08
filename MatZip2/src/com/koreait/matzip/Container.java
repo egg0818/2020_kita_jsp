@@ -1,6 +1,8 @@
 package com.koreait.matzip;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,11 +31,24 @@ public class Container extends HttpServlet {
 	private void proc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String temp = mapper.nav(request); //보통 템플릿 파일명
 		
-		// substring 에 0 넣어야함!!
-		// 프록시구분
-		if(temp.indexOf("/") >= 0 && "redirect:".equals(temp.substring(0, temp.indexOf("/")))) {	
-			response.sendRedirect(temp.substring(temp.indexOf("/")));
-			return;
+		// substring 에 0 주의!!
+		if(temp.indexOf("/") >= 0) {
+			String prefix = temp.substring(0, temp.indexOf("/"));
+			
+			if("redirect:".equals(prefix)) {
+				String value = temp.substring(temp.indexOf("/"));
+				response.sendRedirect(value);
+				return;
+			} else if("ajax:".equals(prefix)) {
+				String value = temp.substring(temp.indexOf("/") + 1);
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("application/json");
+				PrintWriter out = response.getWriter();
+
+				System.out.println("value : " + value);
+				out.print(value);
+				return;
+			}
 		}
 		
 		switch(temp) {
