@@ -250,7 +250,7 @@ table td, th {
         const img = one.profile_img == null ? '<img class="pImg" src="/img/default_profile.png">' : 
            `<img class="pImg" src="/img/user/\${one.i_user}/\${one.profile_img}">`
         
-        const ele = `<div class="likeListContainer">
+       	const ele = `<div class="likeListContainer">
            <div class="containerPImg">
                  \${img}
            </div>
